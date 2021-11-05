@@ -1,7 +1,10 @@
 .idea
 .php_cs
 .php_cs.cache
+.php-cs-fixer.cache
 .phpunit.result.cache
+.DS_Store
+
 build
 composer.lock
 coverage
@@ -11,4 +14,3 @@ phpstan.neon
 testbench.yaml
 vendor
 node_modules
-.php-cs-fixer.cache
