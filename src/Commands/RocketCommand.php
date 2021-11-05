@@ -1,12 +1,12 @@
 <?php
 
-namespace VendorName\Skeleton\Commands;
+namespace visifo\Rocket\Commands;
 
 use Illuminate\Console\Command;
 
-class SkeletonCommand extends Command
+class RocketCommand extends Command
 {
-    public $signature = 'skeleton';
+    public $signature = 'laravel-rocketchat-api-wrapper';
 
     public $description = 'My command';
 

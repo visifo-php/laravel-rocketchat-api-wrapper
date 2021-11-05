@@ -1,17 +1,23 @@
 {
-    "name": ":vendor_slug/:package_slug",
-    "description": ":package_description",
+    "name": "visifo-php/laravel-rocketchat-api-wrapper",
+    "description": "Rocket.chat API wrapper for Laravel.",
     "keywords": [
-        ":vendor_name",
+        "visifo",
+        "visifo-php",
         "laravel",
-        ":package_slug"
+        "laravel-rocketchat-api-wrapper"
     ],
-    "homepage": "https://github.com/:vendor_slug/:package_slug",
+    "homepage": "https://github.com/visifo-php/laravel-rocketchat-api-wrapper",
     "license": "MIT",
     "authors": [
         {
-            "name": ":author_name",
-            "email": "author@domain.com",
+            "name": "Sergej Tihonov",
+            "email": "sergej@visifo.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Luka Heddens",
+            "email": "luka@visifo.com",
             "role": "Developer"
         }
     ],
@@ -34,13 +40,13 @@
     },
     "autoload": {
         "psr-4": {
-            "VendorName\\Skeleton\\": "src",
-            "VendorName\\Skeleton\\Database\\Factories\\": "database/factories"
+            "visifo\\Rocket\\": "src",
+            "visifo\\Rocket\\Database\\Factories\\": "database/factories"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "VendorName\\Skeleton\\Tests\\": "tests"
+            "visifo\\Rocket\\Tests\\": "tests"
         }
     },
     "scripts": {
@@ -54,10 +60,10 @@
     "extra": {
         "laravel": {
             "providers": [
-                "VendorName\\Skeleton\\SkeletonServiceProvider"
+                "visifo\\Rocket\\RocketServiceProvider"
             ],
             "aliases": {
-                "Skeleton": "VendorName\\Skeleton\\SkeletonFacade"
+                "Rocket": "visifo\\Rocket\\RocketFacade"
             }
         }
     },
