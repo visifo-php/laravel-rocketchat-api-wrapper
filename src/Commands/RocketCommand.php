@@ -6,7 +6,7 @@ use Illuminate\Console\Command;
 
 class RocketCommand extends Command
 {
-    public $signature = 'laravel-rocketchat-api-wrapper';
+    public $signature = 'rocket';
 
     public $description = 'My command';
 
