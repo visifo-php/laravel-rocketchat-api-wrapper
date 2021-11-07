@@ -1,10 +1,11 @@
 <?php
+
 declare(strict_types=1);
 
 namespace visifo\Rocket\Endpoints;
 
-use visifo\Rocket\Objects\Channels\Channel;
 use visifo\Rocket\Deserializer;
+use visifo\Rocket\Objects\Channels\Channel;
 use visifo\Rocket\Rocket;
 use visifo\Rocket\RocketException;
 
@@ -25,6 +26,7 @@ class Channels extends Endpoint
         $this->checkEmptyString($name);
         $data = get_defined_vars();
         $response = $this->rocket->post("channels.create", $data);
+
         return Deserializer::deserialize($response, Channel::class);
     }
 
@@ -36,13 +38,15 @@ class Channels extends Endpoint
         if ($roomId) {
             $this->checkEmptyString($roomId);
             $query['roomId'] = $roomId;
-        } else if ($roomName) {
+        } elseif ($roomName) {
             $this->checkEmptyString($roomName);
             $query['roomName'] = $roomName;
-        } else
+        } else {
             throw new RocketException("roomId or roomName must be set to get Channel Info");
+        }
 
         $response = $this->rocket->get("channels.info", $query);
+
         return Deserializer::deserialize($response, Channel::class);
     }
 
@@ -54,11 +58,12 @@ class Channels extends Endpoint
         if ($roomId) {
             $this->checkEmptyString($roomId);
             $data['roomId'] = $roomId;
-        } else if ($roomName) {
+        } elseif ($roomName) {
             $this->checkEmptyString($roomName);
             $data['roomName'] = $roomName;
-        } else
+        } else {
             throw new RocketException("roomId or roomName must be set to delete a Channel");
+        }
 
         $this->rocket->post("channels.delete", $data);
     }
@@ -145,13 +150,12 @@ class Channels extends Endpoint
         if ($roomId) {
             $this->checkEmptyString($roomId);
             $data['roomId'] = $roomId;
-
-        } else if ($userId) {
+        } elseif ($userId) {
             $this->checkEmptyString($userId);
             $data['userId'] = $userId;
-
-        } else
+        } else {
             throw new RocketException("roomId or userId must be set to invite a User to a Channel");
+        }
 
         $data = get_defined_vars();
         $this->rocket->post("channels.invite", $data);
@@ -318,12 +322,12 @@ class Channels extends Endpoint
         if ($roomId) {
             $this->checkEmptyString($roomId);
             $data['roomId'] = $roomId;
-
-        } else if ($roomName) {
+        } elseif ($roomName) {
             $this->checkEmptyString($roomName);
             $data['roomName'] = $roomName;
-        } else
+        } else {
             throw new RocketException("type + roomId or roomName must be set to delete a Channel");
+        }
 
         $data['type'] = $type;
 

@@ -5,10 +5,10 @@ namespace visifo\Rocket\Tests\Unit\Endpoints;
 use Illuminate\Support\Facades\Http;
 use visifo\Rocket\Endpoints\Commands;
 use visifo\Rocket\Objects\Commands\Command;
+use function visifo\Rocket\rocketChat;
 use visifo\Rocket\RocketException;
 use visifo\Rocket\Tests\ExampleResponseHelper;
 use visifo\Rocket\Tests\TestCase;
-use function visifo\Rocket\rocketChat;
 
 class CommandsEndpointTest extends TestCase
 {
@@ -29,7 +29,7 @@ class CommandsEndpointTest extends TestCase
         $this->expectException(RocketException::class);
         $this->expectExceptionMessage('FakeError');
 
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getUnsuccessfulWithException()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getUnsuccessfulWithException()));
 
         $result = $this->testSystem->get('not_existing_command');
     }
@@ -40,7 +40,7 @@ class CommandsEndpointTest extends TestCase
      */
     public function get_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getCommandsGet()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getCommandsGet()));
 
         $result = $this->testSystem->get('fake_command');
 
@@ -57,7 +57,7 @@ class CommandsEndpointTest extends TestCase
      */
     public function list_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getCommandsList()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getCommandsList()));
 
         $result = $this->testSystem->list();
 
@@ -76,7 +76,7 @@ class CommandsEndpointTest extends TestCase
      */
     public function run_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->run('fake_command1', 'fake_room_id');
 

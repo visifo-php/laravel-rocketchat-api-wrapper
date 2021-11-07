@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace visifo\Rocket\Endpoints;
@@ -25,6 +26,7 @@ class Commands extends Endpoint
         $this->checkEmptyString($command);
         $query = get_defined_vars();
         $response = $this->rocket->get("commands.get", $query);
+
         return Deserializer::deserialize($response, Command::class);
     }
 
@@ -34,6 +36,7 @@ class Commands extends Endpoint
     public function list(): \visifo\Rocket\Objects\Commands\Commands
     {
         $response = $this->rocket->get("commands.list");
+
         return Deserializer::deserialize($response, \visifo\Rocket\Objects\Commands\Commands::class);
     }
 
@@ -45,8 +48,9 @@ class Commands extends Endpoint
         $this->checkEmptyString($command);
         $this->checkEmptyString($roomId);
 
-        if (empty($params))
+        if (empty($params)) {
             unset($params);
+        }
 
         $data = get_defined_vars();
         $this->rocket->post("commands.run", $data);

@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace visifo\Rocket\Endpoints;
@@ -25,9 +26,9 @@ class Roles extends Endpoint
         $this->checkEmptyString($name);
         $this->checkEmptyString($scope);
 
-        if(is_null($description))
+        if (is_null($description)) {
             unset($description);
-        else{
+        } else {
             $this->checkEmptyString($description);
         }
 

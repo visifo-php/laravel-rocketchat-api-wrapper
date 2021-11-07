@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Http;
 use visifo\Rocket\Endpoints\Channels;
 use visifo\Rocket\Objects\Channels\Channel;
 use visifo\Rocket\Objects\Common\User;
+use function visifo\Rocket\rocketChat;
 use visifo\Rocket\RocketException;
 use visifo\Rocket\Tests\ExampleResponseHelper;
 use visifo\Rocket\Tests\TestCase;
-use function visifo\Rocket\rocketChat;
 
 class ChannelsEndpointTest extends TestCase
 {
@@ -42,7 +42,7 @@ class ChannelsEndpointTest extends TestCase
         $this->expectException(RocketException::class);
         $this->expectExceptionMessage("FakeError");
 
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getUnsuccessfulWithException()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getUnsuccessfulWithException()));
         $this->testSystem->create('fake');
     }
 
@@ -52,7 +52,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function create_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getChannelsCreate()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getChannelsCreate()));
         $result = $this->testSystem->create('fake_channel_name');
 
         $this->assertInstanceOf(Channel::class, $result);
@@ -72,7 +72,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function info_when_everythingFine_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getChannelsInfo()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getChannelsInfo()));
         $result = $this->testSystem->info('fake_id');
 
         $this->assertInstanceOf(Channel::class, $result);
@@ -92,7 +92,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function delete_when_roomExists_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->delete('room_id');
 
@@ -105,7 +105,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function setTopic_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->setTopic('room_id', 'fake_topic');
 
@@ -118,7 +118,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function addAll_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->addAll('room_id');
 
@@ -131,7 +131,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function addLeader_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->addLeader('room_id', 'user_id');
 
@@ -144,7 +144,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function addModerator_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->addModerator('room_id', 'user_id');
 
@@ -157,7 +157,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function addOwner_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->addOwner('room_id', 'user_id');
 
@@ -170,7 +170,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function archive_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->archive('room_id');
 
@@ -183,7 +183,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function close_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->close('room_id');
 
@@ -196,7 +196,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function invite_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->invite('room_id', 'user_id');
 
@@ -209,7 +209,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function join_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->join('room_id');
 
@@ -222,7 +222,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function kick_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->kick('room_id', 'user_id');
 
@@ -235,7 +235,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function leave_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->leave('room_id');
 
@@ -248,7 +248,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function open_when_everythingFine_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->open('room_id');
 
@@ -261,7 +261,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function removeLeader_when_everythingFine_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->removeLeader('room_id', 'user_id');
 
@@ -274,7 +274,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function removeModerator_when_everythingFine_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->removeModerator('room_id', 'user_id');
 
@@ -287,7 +287,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function removeOwner_when_everythingFine_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->removeOwner('room_id', 'user_id');
 
@@ -300,7 +300,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function rename_when_everythingFine_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->rename('room_id', 'fake_name');
 
@@ -313,7 +313,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function setAnnouncement_when_everythingFine_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->setAnnouncement('room_id', 'fake_announcement');
 
@@ -326,7 +326,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function setDefault_when_everythingFine_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->setDefault('room_id', 'fake_default');
 
@@ -339,7 +339,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function setDescription_when_everythingFine_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->setDescription('room_id', 'fake_description');
 
@@ -352,7 +352,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function setJoinCode_when_everythingFine_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->setJoinCode('room_id', 'fake_joincode');
 
@@ -365,7 +365,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function setPurpose_when_everythingFine_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->setPurpose('room_id', 'fake_purpose');
 
@@ -378,7 +378,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function setReadOnly_when_everythingFine_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->setReadOnly('room_id', true);
 
@@ -391,7 +391,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function setType_when_everythingFine_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->setType('fake_type', 'room_id');
 
@@ -404,7 +404,7 @@ class ChannelsEndpointTest extends TestCase
      */
     public function unarchive_when_everythingFine_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->unarchive('room_id');
 

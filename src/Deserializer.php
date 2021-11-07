@@ -49,27 +49,29 @@ class Deserializer
                     $isNullable = true;
                 }
 
-                if (!property_exists($response, $propertyName)) {
+                if (! property_exists($response, $propertyName)) {
                     if ($isNullable) {
                         $classInstance->{$propertyName} = null;
+
                         continue;
                     }
+
                     throw new RocketException("property: '$propertyName' must exist in response");
                 }
 
-                if (!$propertyType) {
+                if (! $propertyType) {
                     throw new RocketException("property: '$propertyName' needs to be typed");
                 }
 
                 if (is_object($response->$propertyName)) {
                     $class = self::getObjectClass($property, $classInstance);
                     self::fillObject($response->$propertyName, $class);
-                } else if (is_array($response->$propertyName)) {
+                } elseif (is_array($response->$propertyName)) {
                     self::fillArray($property, $response, $classInstance);
                 } else {
                     $classInstance->{$propertyName} = $response->$propertyName;
                 }
-            } else if (is_array($response)) {
+            } elseif (is_array($response)) {
                 self::fillArray($property, $response, $classInstance);
             } else {
                 throw new RocketException("Response must be type object or array");
@@ -83,7 +85,7 @@ class Deserializer
     private static function getObjectOrArrayFromResponse(object|array $response): object|array
     {
         $properties = get_object_vars($response);
-        $objects = array_filter($properties, fn($prop) => is_object($prop) || is_array($prop));
+        $objects = array_filter($properties, fn ($prop) => is_object($prop) || is_array($prop));
 
         if (empty($objects)) {
             throw new RocketException("Didnt find any objects/arrays inside RocketChat response");

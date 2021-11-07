@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace visifo\Rocket\Endpoints;
@@ -22,13 +23,15 @@ class Chat extends Endpoint
      */
     public function postMessage(string $roomId, string $text, ?string $channel = null): Message
     {
-        if (empty($channel))
+        if (empty($channel)) {
             unset($channel);
+        }
 
         $this->checkEmptyString($roomId);
         $this->checkEmptyString($text);
         $data = get_defined_vars();
         $response = $this->rocket->post("chat.postMessage", $data);
+
         return Deserializer::deserialize($response, Message::class);
     }
 

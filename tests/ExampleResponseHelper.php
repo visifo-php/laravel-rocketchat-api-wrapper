@@ -2,7 +2,6 @@
 
 namespace visifo\Rocket\Tests;
 
-
 use visifo\Rocket\RocketException;
 
 class ExampleResponseHelper
@@ -124,10 +123,9 @@ class ExampleResponseHelper
      */
     private static function getJson(string $path): array
     {
-
         $json = file_get_contents($path);
 
-        if (!$json) {
+        if (! $json) {
             throw new RocketException('no valid json found');
         }
 

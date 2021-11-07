@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace visifo\Rocket\Endpoints;
@@ -15,6 +16,7 @@ abstract class Endpoint
         if (empty($s)) {
             throw new RocketException("String in function argument cant be empty");
         }
+
         return false;
     }
 }

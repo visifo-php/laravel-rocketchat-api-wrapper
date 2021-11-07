@@ -1,4 +1,5 @@
 <?php
+
 declare(strict_types=1);
 
 namespace visifo\Rocket\Endpoints;
@@ -25,6 +26,7 @@ class Users extends Endpoint
         $this->checkEmptyString($name);
         $data = get_defined_vars();
         $response = $this->rocket->post("users.create", $data);
+
         return Deserializer::deserialize($response, User::class);
     }
 
@@ -58,6 +60,7 @@ class Users extends Endpoint
     public function list(): \visifo\Rocket\Objects\Users\Users
     {
         $response = $this->rocket->get("users.list");
+
         return Deserializer::deserialize($response, \visifo\Rocket\Objects\Users\Users::class);
     }
 }
