@@ -1,0 +1,18 @@
+{
+    "commands": [
+        {
+            "command": "fake_command1",
+            "clientOnly": false
+        },
+        {
+            "command": "fake_command2",
+            "params": "fake_params",
+            "description": "fake_description",
+            "clientOnly": false
+        }
+    ],
+    "offset": 0,
+    "count": 2,
+    "total": 2,
+    "success": true
+}

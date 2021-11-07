@@ -1,0 +1,20 @@
+{
+    "channel": {
+        "_id": "fake_channel_id",
+        "fname": "fake_channel_name",
+        "customFields": {
+        },
+        "name": "fake",
+        "t": "c",
+        "msgs": 0,
+        "usersCount": 1,
+        "u": {
+            "_id": "fake_user_id",
+            "username": "fake_user_name"
+        },
+        "ts": "2021-10-05T11:05:23.206Z",
+        "ro": false,
+        "_updatedAt": "2021-10-05T11:05:23.210Z"
+    },
+    "success": true
+}

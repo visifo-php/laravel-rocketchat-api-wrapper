@@ -1,0 +1,10 @@
+{
+    "role": {
+        "_id": "fake_role_id",
+        "name": "fake_role_name",
+        "scope": "fake_scope",
+        "description": "fake_description",
+        "_updatedAt": "2018-08-23T03:57:54.603Z"
+    },
+    "success": true
+}

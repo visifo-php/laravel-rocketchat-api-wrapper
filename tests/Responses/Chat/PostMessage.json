@@ -1,0 +1,39 @@
+{
+    "ts": 1635856594537,
+    "channel": "fake_room_id",
+    "message": {
+        "alias": "",
+        "msg": "test_message",
+        "attachments": [
+        ],
+        "parseUrls": true,
+        "groupable": false,
+        "ts": "2021-11-02T12:36:34.525Z",
+        "u": {
+            "_id": "fakeuser",
+            "username": "fakeuser",
+            "name": "fakeuser"
+        },
+        "rid": "fakeid",
+        "urls": [
+        ],
+        "mentions": [
+        ],
+        "channels": [
+        ],
+        "md": [
+            {
+                "type": "PARAGRAPH",
+                "value": [
+                    {
+                        "type": "PLAIN_TEXT",
+                        "value": "test"
+                    }
+                ]
+            }
+        ],
+        "_updatedAt": "2021-11-02T12:36:34.535Z",
+        "_id": "fakeid"
+    },
+    "success": true
+}

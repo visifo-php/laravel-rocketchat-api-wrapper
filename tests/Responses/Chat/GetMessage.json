@@ -1,0 +1,41 @@
+{
+    "message":{
+        "_id":"fake_message_id",
+        "alias":"",
+        "msg":"fake_message",
+        "attachments":[
+
+        ],
+        "parseUrls":true,
+        "groupable":false,
+        "ts":"2021-11-05T10:31:20.488Z",
+        "u":{
+            "_id":"fake_user_id",
+            "username":"fake_username",
+            "name":"fake_username"
+        },
+        "rid":"fake_channel_id",
+        "urls":[
+
+        ],
+        "mentions":[
+
+        ],
+        "channels":[
+
+        ],
+        "md":[
+            {
+                "type":"PARAGRAPH",
+                "value":[
+                    {
+                        "type":"PLAIN_TEXT",
+                        "value":"fake_message"
+                    }
+                ]
+            }
+        ],
+        "_updatedAt":"2021-11-05T10:31:20.489Z"
+    },
+    "success":true
+}

@@ -1,0 +1,9 @@
+{
+    "command": {
+        "command": "fake_command",
+        "params": "fake_params",
+        "description": "fake_description",
+        "clientOnly": false
+    },
+    "success": true
+}

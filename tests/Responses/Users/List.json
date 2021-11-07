@@ -1,0 +1,17 @@
+{
+    "users": [
+        {
+            "_id": "fake_user_id",
+            "type": "fake_type",
+            "status": "offline",
+            "active": false,
+            "name": "fake_name",
+            "utcOffset": 0,
+            "username": "fake_user_name"
+        }
+    ],
+    "count": 1,
+    "offset": 0,
+    "total": 1,
+    "success": true
+}
