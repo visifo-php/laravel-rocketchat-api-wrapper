@@ -7,6 +7,8 @@
 
 ---
 
+This is a Laravel RocketChat REST API Wrapper. It's simple to use, typesafe and object-oriented.
+
 ## Installation
 
 You can install the package via composer:
@@ -16,22 +18,58 @@ composer require visifo-php/laravel-rocketchat-api-wrapper
 ```
 
 You can publish the config file with:
+
 ```bash
 php artisan vendor:publish --provider="visifo\Rocket\RocketServiceProvider" --tag="laravel-rocketchat-api-wrapper-config"
 ```
 
-This is the contents of the published config file:
+You have to specify your RocketChat Url and either the UserId and AuthToken or UserName and Password to authenticate
+with the RocketChat API in your Laravel .env
 
-```php
-return [
-];
+```dotenv
+ROCKET_URL=your-rocketchat.de
+
+ROCKET_USER_ID=123456
+ROCKET_AUTH_TOKEN=987654
+#or
+ROCKET_USER_NAME=myrocketuser
+Rocket_USER_PASSWORD=mypassword
 ```
 
 ## Usage
 
+You can send Requests to an Endpoint via the Endpoint Objects. You can get them from the RocketChat Client like this
+
 ```php
-$laravel-rocketchat-api-wrapper = new visifo\Rocket();
-echo $laravel-rocketchat-api-wrapper->echoPhrase('Hello, visifo!');
+$channelsEndpoint = \visifo\Rocket\rocketChat()->channels
+$chatEndpoint = \visifo\Rocket\rocketChat()->chat
+$commandsEndpoint = \visifo\Rocket\rocketChat()->commands
+$rolesEndpoint = \visifo\Rocket\rocketChat()->roles
+$usersEndpoint = \visifo\Rocket\rocketChat()->users
+```
+
+From there you can make API calls
+
+```php
+$channel = $channelsEndpoint->create("myChannel");
+// $channel has Type: visifo\Rocket\Objects\Channels\Channel
+
+$channelsEndpoint->setTopic($channel->id, "myTopic")
+```
+
+All functions who return the Response from RocketChat will deserialize it into its own simplified Object. Also, some properties gets renamed to something more simple or meaningful,
+for example "t" to "type" or "_id" to "id"
+
+Alternatively you can make Requests directly via the RocketChat Client which will result in the raw stdClass you get
+from the RocketChat API
+
+```php
+$rocketChatClient = \visifo\Rocket\rocketChat()
+
+$channel = $rocketChatClient->post("channels.create", ['name' => 'myChannel']);
+// $channel has Type: stdClass
+
+$rocketChatClient->post("channels.setTopic", ['roomId' => $channel->_id, 'topic' => 'myTopic'])
 ```
 
 ## Testing
