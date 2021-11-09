@@ -27,7 +27,7 @@ You have to specify your RocketChat Url and either the UserId and AuthToken or U
 with the RocketChat API in your Laravel .env
 
 ```dotenv
-ROCKET_URL=your-rocketchat.de
+ROCKET_URL=your-rocketchat.com
 
 ROCKET_USER_ID=123456
 ROCKET_AUTH_TOKEN=987654
@@ -41,11 +41,11 @@ Rocket_USER_PASSWORD=mypassword
 You can send Requests to an Endpoint via the Endpoint Objects. You can get them from the RocketChat Client like this
 
 ```php
-$channelsEndpoint = \visifo\Rocket\rocketChat()->channels
-$chatEndpoint = \visifo\Rocket\rocketChat()->chat
-$commandsEndpoint = \visifo\Rocket\rocketChat()->commands
-$rolesEndpoint = \visifo\Rocket\rocketChat()->roles
-$usersEndpoint = \visifo\Rocket\rocketChat()->users
+$channelsEndpoint = \visifo\Rocket\rocketChat()->channels;
+$chatEndpoint = \visifo\Rocket\rocketChat()->chat;
+$commandsEndpoint = \visifo\Rocket\rocketChat()->commands;
+$rolesEndpoint = \visifo\Rocket\rocketChat()->roles;
+$usersEndpoint = \visifo\Rocket\rocketChat()->users;
 ```
 
 From there you can make API calls

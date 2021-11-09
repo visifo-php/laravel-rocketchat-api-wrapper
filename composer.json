@@ -24,6 +24,7 @@
     ],
     "require": {
         "php": "^8.0",
+        "guzzlehttp/guzzle": "^7.3",
         "illuminate/contracts": "^8.69",
         "spatie/laravel-package-tools": "^1.4.3"
     },
@@ -36,6 +37,9 @@
         "phpunit/phpunit": "^9.3"
     },
     "autoload": {
+        "files": [
+            "src/helpers.php"
+        ],
         "psr-4": {
             "visifo\\Rocket\\": "src",
             "visifo\\Rocket\\Database\\Factories\\": "database/factories"
