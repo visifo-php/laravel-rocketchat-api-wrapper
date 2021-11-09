@@ -17,7 +17,7 @@ class RocketServiceProvider extends PackageServiceProvider
          */
         $package
             ->name('laravel-rocketchat-api-wrapper')
-            ->hasConfigFile()
+            ->hasConfigFile('rocket')
             ->hasCommand(RocketCommand::class);
     }
 }

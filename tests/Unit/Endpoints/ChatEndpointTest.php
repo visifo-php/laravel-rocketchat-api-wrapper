@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Http;
 use visifo\Rocket\Endpoints\Chat;
 use visifo\Rocket\Objects\Chat\Message;
 use visifo\Rocket\Objects\Common\User;
-use function visifo\Rocket\rocketChat;
 use visifo\Rocket\RocketException;
 use visifo\Rocket\Tests\ExampleResponseHelper;
 use visifo\Rocket\Tests\TestCase;
+use function visifo\Rocket\rocketChat;
 
 class ChatEndpointTest extends TestCase
 {
