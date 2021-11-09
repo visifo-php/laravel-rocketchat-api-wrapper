@@ -31,37 +31,6 @@ class RocketTest extends TestCase
         $this->assertInstanceOf(Rocket::class, $result);
     }
 
-    /** @test */
-    public function getInstance_when_creatingInstance_then_headersAreFine()
-    {
-        $result = rocketChat();
-
-        $expectedHeaders = [
-            'X-User-Id' => config('rocket.user.id'),
-            'X-Auth-Token' => config('rocket.authToken'),
-            'Accept' => 'application/json',
-        ];
-
-        $this->assertEquals($expectedHeaders, $result->headers);
-    }
-
-    /** @test */
-    public function getInstance_when_creatingInstance_then_configIsPresent()
-    {
-        $result = rocketChat();
-
-        $this->assertNotEmpty($result->url);
-        $this->assertNotEmpty($result->userId);
-        $this->assertNotEmpty($result->authToken);
-        $this->assertNotEmpty($result->userName);
-        $this->assertNotEmpty($result->userPassword);
-        $this->assertEquals($result->url, config('rocket.url'));
-        $this->assertEquals($result->userId, config('rocket.user.id'));
-        $this->assertEquals($result->authToken, config('rocket.authToken'));
-        $this->assertEquals($result->userName, config('rocket.user.name'));
-        $this->assertEquals($result->userPassword, config('rocket.user.password'));
-    }
-
     /**
      * @test
      * @throws RocketException

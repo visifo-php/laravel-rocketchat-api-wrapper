@@ -17,7 +17,7 @@ class RolesEndpointTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->testSystem = rocketChat()->roles;
+        $this->testSystem = rocketChat()->roles();
     }
 
     /**

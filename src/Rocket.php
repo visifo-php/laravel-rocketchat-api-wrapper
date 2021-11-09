@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace visifo\Rocket;
 
+use Exception;
 use Illuminate\Support\Facades\Http;
 use visifo\Rocket\Endpoints\Channels;
 use visifo\Rocket\Endpoints\Chat;
@@ -15,18 +16,12 @@ class Rocket
 {
     private static Rocket $instance;
 
-    public string $url;
-    public string $userId;
-    public string $authToken;
-    public string $userName;
-    public string $userPassword;
-    public array $headers;
-
-    public Channels $channels;
-    public Chat $chat;
-    public Commands $commands;
-    public Roles $roles;
-    public Users $users;
+    private string $url;
+    private string $userId;
+    private string $authToken;
+    private string $userName;
+    private string $userPassword;
+    private array $headers;
 
     private function __construct()
     {
@@ -40,21 +35,19 @@ class Rocket
             'X-Auth-Token' => $this->authToken,
             'Accept' => 'application/json',
         ];
-
-        $this->channels = new Channels($this);
-        $this->chat = new Chat($this);
-        $this->commands = new Commands($this);
-        $this->roles = new Roles($this);
-        $this->users = new Users($this);
     }
 
+    /**
+     * @throws Exception
+     */
     private function __clone()
     {
+        throw new Exception('Singletons should not be cloneable');
     }
 
     public static function getInstance(): Rocket
     {
-        if (! isset(self::$instance)) {
+        if (!isset(self::$instance)) {
             self::$instance = new static();
         }
 
@@ -95,6 +88,7 @@ class Rocket
         return $response;
     }
 
+    // TODO
     public function securePost()
     {
     }
@@ -104,12 +98,38 @@ class Rocket
      */
     public function checkResponse(object $response)
     {
-        if (! isset($response->success)) {
+        if (!isset($response->success)) {
             throw new RocketException("Property: 'success' must be set in RocketChat response");
         }
 
-        if (! $response->success) {
+        // TODO
+        if (!$response->success) {
             throw new RocketException("Request wasn't successful. Reason: '$response->error'", $response->errorType);
         }
+    }
+
+    public function channels(): Channels
+    {
+        return new Channels($this);
+    }
+
+    public function chat(): Chat
+    {
+        return new Chat($this);
+    }
+
+    public function commands(): Commands
+    {
+        return new Commands($this);
+    }
+
+    public function roles(): Roles
+    {
+        return new Roles($this);
+    }
+
+    public function users(): Users
+    {
+        return new Users($this);
     }
 }

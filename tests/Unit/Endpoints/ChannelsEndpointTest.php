@@ -18,7 +18,7 @@ class ChannelsEndpointTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->testSystem = rocketChat()->channels;
+        $this->testSystem = rocketChat()->channels();
     }
 
     /**

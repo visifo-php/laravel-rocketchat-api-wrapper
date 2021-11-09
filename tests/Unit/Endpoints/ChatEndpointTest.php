@@ -18,7 +18,7 @@ class ChatEndpointTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->testSystem = rocketChat()->chat;
+        $this->testSystem = rocketChat()->chat();
     }
 
     /**

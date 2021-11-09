@@ -17,7 +17,7 @@ class UsersEndpointTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->testSystem = rocketChat()->users;
+        $this->testSystem = rocketChat()->users();
     }
 
     /**

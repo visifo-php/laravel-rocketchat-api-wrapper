@@ -17,7 +17,7 @@ class CommandsEndpointTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
-        $this->testSystem = rocketChat()->commands;
+        $this->testSystem = rocketChat()->commands();
     }
 
     /**
