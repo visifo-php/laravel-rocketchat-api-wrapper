@@ -71,8 +71,9 @@ class Users extends Endpoint
     {
         $this->checkEmptyString($userId);
 
-        if (empty($data))
+        if (empty($data)) {
             throw new RocketException('data cant be empty');
+        }
 
         $data = get_defined_vars();
         $this->rocket->post("users.update", $data);
