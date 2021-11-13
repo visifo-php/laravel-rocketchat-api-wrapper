@@ -19,22 +19,24 @@ class Rocket
     private string $url;
     private string $userId;
     private string $authToken;
-    private string $userName;
-    private string $userPassword;
     private array $headers;
+    private int $timeout;
+    private int $retries;
+    private int $sleep;
 
     private function __construct()
     {
         $this->url = config('rocket.url');
         $this->userId = config('rocket.user.id');
         $this->authToken = config('rocket.authToken');
-        $this->userName = config('rocket.user.name');
-        $this->userPassword = config('rocket.user.password');
         $this->headers = [
             'X-User-Id' => $this->userId,
             'X-Auth-Token' => $this->authToken,
             'Accept' => 'application/json',
         ];
+        $this->timeout = config('rocket.timeout');
+        $this->retries = config('rocket.retries');
+        $this->sleep = config('rocket.sleep');
     }
 
     /**
@@ -66,7 +68,7 @@ class Rocket
         $url = $this->url . '/api/v1/' . $endpoint;
         $headers = $this->headers;
         $headers['Content-Type'] = 'application/json';
-        $response = Http::timeout(2)->retry(2, 1000)->withHeaders($headers)->post($url, $data)->object()
+        $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($headers)->post($url, $data)->object()
             ?? throw new RocketException();
 
         $this->checkResponse($response);
@@ -80,7 +82,7 @@ class Rocket
     public function get(string $endpoint, ?array $query = null): object
     {
         $url = $this->url . '/api/v1/' . $endpoint;
-        $response = Http::timeout(2)->retry(2, 1000)->withHeaders($this->headers)->get($url, $query)->object()
+        $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($this->headers)->get($url, $query)->object()
             ?? throw new RocketException("Failed to receive response from RocketChat");
 
         $this->checkResponse($response);
