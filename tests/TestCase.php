@@ -28,8 +28,8 @@ class TestCase extends Orchestra
     {
         config()->set('database.default', 'testing');
         config()->set('rocket.url', 'www.example.com');
-        config()->set('rocket.authToken', '123456');
-        config()->set('rocket.user.id', '654321');
+        config()->set('rocket.authToken', 'Z9__Y1_Es6OB2kMf4dBD3I6qygRT3s-Lla67pf8AU1p');
+        config()->set('rocket.user.id', 'RLhxwWHn9RjiWjtdG');
         /*
         $migration = include __DIR__.'/../database/migrations/create_laravel-rocketchat-api-wrapper_table.php.stub';
         $migration->up();
