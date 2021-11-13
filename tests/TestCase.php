@@ -27,7 +27,9 @@ class TestCase extends Orchestra
     public function getEnvironmentSetUp($app)
     {
         config()->set('database.default', 'testing');
-
+        config()->set('rocket.url', 'www.example.com');
+        config()->set('rocket.authToken', '123456');
+        config()->set('rocket.user.id', '654321');
         /*
         $migration = include __DIR__.'/../database/migrations/create_laravel-rocketchat-api-wrapper_table.php.stub';
         $migration->up();
