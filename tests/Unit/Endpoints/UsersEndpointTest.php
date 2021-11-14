@@ -3,6 +3,8 @@
 namespace visifo\Rocket\Tests\Unit\Endpoints;
 
 use Illuminate\Support\Facades\Http;
+use ReflectionClass;
+use ReflectionException;
 use visifo\Rocket\Endpoints\Users;
 use visifo\Rocket\Objects\Users\User;
 use function visifo\Rocket\rocketChat;
@@ -68,10 +70,16 @@ class UsersEndpointTest extends TestCase
     /**
      * @test
      * @throws RocketException
+     * @throws ReflectionException
      */
     public function update_when_validInput_then_succeed()
     {
         $this->expectNotToPerformAssertions();
+
+        $resultReflection = new ReflectionClass(rocketChat());
+        $resultPassword = $resultReflection->getProperty('password');
+        $resultPassword->setAccessible(true);
+        $resultPassword->setValue(rocketChat(), 'password');
 
         Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
         $this->testSystem->update('fake_user_id', ['name' => 'newName']);

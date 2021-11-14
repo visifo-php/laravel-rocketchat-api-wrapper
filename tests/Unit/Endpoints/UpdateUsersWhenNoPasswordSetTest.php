@@ -3,6 +3,8 @@
 namespace visifo\Rocket\Tests\Unit\Endpoints;
 
 use Illuminate\Support\Facades\Http;
+use ReflectionClass;
+use ReflectionException;
 use visifo\Rocket\Endpoints\Users;
 use function visifo\Rocket\rocketChat;
 use visifo\Rocket\RocketException;
@@ -19,17 +21,10 @@ class UpdateUsersWhenNoPasswordSetTest extends TestCase
         $this->testSystem = rocketChat()->users();
     }
 
-    public function getEnvironmentSetUp($app)
-    {
-        config()->set('rocket.url', 'www.example.com');
-        config()->set('rocket.authToken', 'Z9__Y1_Es6OB2kMf4dBD3I6qygRT3s-Lla67pf8AU1p');
-        config()->set('rocket.user.id', 'RLhxwWHn9RjiWjtdG');
-        config()->set('rocket.user.password', '');
-    }
-
     /**
      * @test
      * @throws RocketException
+     * @throws ReflectionException
      */
     public function update_when_noPasswordSet_then_throwException()
     {
@@ -37,6 +32,13 @@ class UpdateUsersWhenNoPasswordSetTest extends TestCase
         $this->expectExceptionMessage('Password required for 2FA requests. Please set it in your Laravel .env file');
         Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
+        $resultReflection = new ReflectionClass(rocketChat());
+        $resultPassword = $resultReflection->getProperty('password');
+        $resultPassword->setAccessible(true);
+        $resultPassword->setValue(rocketChat(), '');
+
         $this->testSystem->update('fake_user_id', ['name' => 'newName']);
+
+        $resultPassword->setValue(rocketChat(), 'password');
     }
 }
