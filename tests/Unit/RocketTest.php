@@ -41,8 +41,8 @@ class RocketTest extends TestCase
         $result = rocketChat();
 
         $expectedHeaders = [
-            'X-User-Id' => config('rocket.user.id'),
-            'X-Auth-Token' => config('rocket.authToken'),
+            'X-User-Id' => 'RLhxwWHn9RjiWjtdG',
+            'X-Auth-Token' => 'Z9__Y1_Es6OB2kMf4dBD3I6qygRT3s-Lla67pf8AU1p',
             'Accept' => 'application/json',
         ];
 
@@ -63,12 +63,11 @@ class RocketTest extends TestCase
         $resultReflection = new ReflectionClass($result);
 
         $resultUrl = $resultReflection->getProperty('url');
-        $resultUrl->setAccessible(true);
-
         $resultUserId = $resultReflection->getProperty('userId');
-        $resultUserId->setAccessible(true);
-
         $resultAuthToken = $resultReflection->getProperty('authToken');
+
+        $resultUrl->setAccessible(true);
+        $resultUserId->setAccessible(true);
         $resultAuthToken->setAccessible(true);
 
         $this->assertNotEmpty($resultUrl->getValue($result));
@@ -112,7 +111,7 @@ class RocketTest extends TestCase
      */
     public function post_when_statusNot200_then_throwException()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::successWithObject(), 401));
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getUnsuccessfulWithException(), 401));
 
         $this->expectException(RequestException::class);
         $this->expectExceptionMessage('HTTP request returned status code 401');

@@ -76,6 +76,6 @@ class Users extends Endpoint
         }
 
         $data = get_defined_vars();
-        $this->rocket->post("users.update", $data);
+        $this->rocket->postWith2FA("users.update", $data);
     }
 }

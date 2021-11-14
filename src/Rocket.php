@@ -19,6 +19,7 @@ class Rocket
     private string $url;
     private string $userId;
     private string $authToken;
+    private string $password;
     private array $headers;
     private int $timeout;
     private int $retries;
@@ -37,6 +38,10 @@ class Rocket
         $this->timeout = config('rocket.timeout');
         $this->retries = config('rocket.retries');
         $this->sleep = config('rocket.sleep');
+
+        if (config('rocket.user.password')) {
+            $this->password = config('rocket.user.password');
+        }
     }
 
     /**
@@ -49,7 +54,7 @@ class Rocket
 
     public static function getInstance(): Rocket
     {
-        if (! isset(self::$instance)) {
+        if (!isset(self::$instance)) {
             self::$instance = new static();
         }
 
@@ -69,7 +74,7 @@ class Rocket
         $headers = $this->headers;
         $headers['Content-Type'] = 'application/json';
         $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($headers)->post($url, $data)->object()
-            ?? throw new RocketException();
+            ?? throw new RocketException('Failed to receive response from RocketChat');
 
         $this->checkResponse($response);
 
@@ -83,16 +88,35 @@ class Rocket
     {
         $url = $this->url . '/api/v1/' . $endpoint;
         $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($this->headers)->get($url, $query)->object()
-            ?? throw new RocketException("Failed to receive response from RocketChat");
+            ?? throw new RocketException('Failed to receive response from RocketChat');
 
         $this->checkResponse($response);
 
         return $response;
     }
 
-    // TODO
-    public function securePost()
+    /**
+     * @throws RocketException
+     */
+    public function postWith2FA(string $endpoint, array $data): object
     {
+        if (empty($this->password)) {
+            throw new RocketException('Password required for 2FA requests. Please set it in your Laravel .env file');
+        }
+
+        $url = $this->url . '/api/v1/' . $endpoint;
+        $headers = $this->headers;
+        $headers['Content-Type'] = 'application/json';
+        $headers['x-2fa-code'] = hash('sha256', $this->password);
+        $headers['x-2fa-method'] = 'password';
+
+        $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($headers)->post($url, $data)->object()
+            ?? throw new RocketException('Failed to receive response from RocketChat');
+
+        $this->checkResponse($response);
+
+        return $response;
+
     }
 
     /**
@@ -100,12 +124,12 @@ class Rocket
      */
     public function checkResponse(object $response)
     {
-        if (! isset($response->success)) {
+        if (!isset($response->success)) {
             throw new RocketException("Property: 'success' must be set in RocketChat response");
         }
 
         // TODO
-        if (! $response->success) {
+        if (!$response->success) {
             if (isset($response->error) && isset($response->errorType)) {
                 throw new RocketException("Request wasn't successful. Reason: '$response->error'", $response->errorType);
             }
