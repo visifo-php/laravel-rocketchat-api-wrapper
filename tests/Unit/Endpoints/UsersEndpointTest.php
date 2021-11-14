@@ -5,10 +5,10 @@ namespace visifo\Rocket\Tests\Unit\Endpoints;
 use Illuminate\Support\Facades\Http;
 use visifo\Rocket\Endpoints\Users;
 use visifo\Rocket\Objects\Users\User;
-use function visifo\Rocket\rocketChat;
 use visifo\Rocket\RocketException;
 use visifo\Rocket\Tests\ExampleResponseHelper;
 use visifo\Rocket\Tests\TestCase;
+use function visifo\Rocket\rocketChat;
 
 class UsersEndpointTest extends TestCase
 {
@@ -63,22 +63,6 @@ class UsersEndpointTest extends TestCase
         $this->assertEquals("offline", $result->users[0]->status);
         $this->assertEquals(false, $result->users[0]->active);
         $this->assertEquals('fake_user_name', $result->users[0]->username);
-    }
-
-    /**
-     * @test
-     * @throws RocketException
-     */
-    public function update_when_noPasswordSet_then_throwException()
-    {
-        /*
-        $this->expectException(RocketException::class);
-        $this->expectExceptionMessage('Password required for 2FA requests. Please set it in your Laravel .env file');
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
-        config()->set('rocket.user.password', '');
-        $this->testSystem->update('fake_user_id', ['name' => 'newName']);
-        */
-        $this->expectNotToPerformAssertions();
     }
 
     /**
