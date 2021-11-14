@@ -166,7 +166,7 @@ class RocketTest extends TestCase
     {
         $this->expectException(RocketException::class);
         $this->expectExceptionMessage('Request failed with Code: 401');
-        Http::fake( fn() => Http::response(ExampleResponseHelper::successWithObject(), 401));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::successWithObject(), 401));
 
         rocketChat()->get('fake.endpoint');
     }

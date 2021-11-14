@@ -113,6 +113,7 @@ class ExampleResponseHelper
     public static function getUsersCreateAsObject(): object
     {
         $json = file_get_contents(__DIR__ . '/Responses/Users/Create.json');
+
         return json_decode($json);
     }
 
