@@ -4,10 +4,10 @@ namespace visifo\Rocket\Tests\Unit\Endpoints;
 
 use Illuminate\Support\Facades\Http;
 use visifo\Rocket\Endpoints\Users;
+use function visifo\Rocket\rocketChat;
 use visifo\Rocket\RocketException;
 use visifo\Rocket\Tests\ExampleResponseHelper;
 use visifo\Rocket\Tests\TestCase;
-use function visifo\Rocket\rocketChat;
 
 class UpdateUsersWhenNoPasswordSetTest extends TestCase
 {
@@ -35,7 +35,7 @@ class UpdateUsersWhenNoPasswordSetTest extends TestCase
     {
         $this->expectException(RocketException::class);
         $this->expectExceptionMessage('Password required for 2FA requests. Please set it in your Laravel .env file');
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->update('fake_user_id', ['name' => 'newName']);
     }

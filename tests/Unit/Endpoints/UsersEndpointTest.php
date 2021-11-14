@@ -5,10 +5,10 @@ namespace visifo\Rocket\Tests\Unit\Endpoints;
 use Illuminate\Support\Facades\Http;
 use visifo\Rocket\Endpoints\Users;
 use visifo\Rocket\Objects\Users\User;
+use function visifo\Rocket\rocketChat;
 use visifo\Rocket\RocketException;
 use visifo\Rocket\Tests\ExampleResponseHelper;
 use visifo\Rocket\Tests\TestCase;
-use function visifo\Rocket\rocketChat;
 
 class UsersEndpointTest extends TestCase
 {
