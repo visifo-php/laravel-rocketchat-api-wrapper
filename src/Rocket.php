@@ -54,7 +54,7 @@ class Rocket
 
     public static function getInstance(): Rocket
     {
-        if (!isset(self::$instance)) {
+        if (! isset(self::$instance)) {
             self::$instance = new static();
         }
 
@@ -116,7 +116,6 @@ class Rocket
         $this->checkResponse($response);
 
         return $response;
-
     }
 
     /**
@@ -124,12 +123,12 @@ class Rocket
      */
     public function checkResponse(object $response)
     {
-        if (!isset($response->success)) {
+        if (! isset($response->success)) {
             throw new RocketException("Property: 'success' must be set in RocketChat response");
         }
 
         // TODO
-        if (!$response->success) {
+        if (! $response->success) {
             if (isset($response->error) && isset($response->errorType)) {
                 throw new RocketException("Request wasn't successful. Reason: '$response->error'", $response->errorType);
             }
