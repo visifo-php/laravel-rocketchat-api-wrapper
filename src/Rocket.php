@@ -73,12 +73,16 @@ class Rocket
         $url = $this->url . '/api/v1/' . $endpoint;
         $headers = $this->headers;
         $headers['Content-Type'] = 'application/json';
-        $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($headers)->post($url, $data)->object()
-            ?? throw new RocketException('Failed to receive response from RocketChat');
 
-        $this->checkResponse($response);
+        $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($headers)->post($url, $data);
 
-        return $response;
+        if ($response->failed()) {
+            throw new RocketException("Request failed with Code: {$response->status()}");
+        }
+
+        $this->checkResponse($response->object());
+
+        return $response->object();
     }
 
     /**
@@ -87,12 +91,15 @@ class Rocket
     public function get(string $endpoint, ?array $query = null): object
     {
         $url = $this->url . '/api/v1/' . $endpoint;
-        $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($this->headers)->get($url, $query)->object()
-            ?? throw new RocketException('Failed to receive response from RocketChat');
+        $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($this->headers)->get($url, $query);
 
-        $this->checkResponse($response);
+        if ($response->failed()) {
+            throw new RocketException("Request failed with Code: {$response->status()}");
+        }
 
-        return $response;
+        $this->checkResponse($response->object());
+
+        return $response->object();
     }
 
     /**
@@ -110,12 +117,15 @@ class Rocket
         $headers['x-2fa-code'] = hash('sha256', $this->password);
         $headers['x-2fa-method'] = 'password';
 
-        $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($headers)->post($url, $data)->object()
-            ?? throw new RocketException('Failed to receive response from RocketChat');
+        $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($headers)->post($url, $data);
 
-        $this->checkResponse($response);
+        if ($response->failed()) {
+            throw new RocketException("Request failed with Code: {$response->status()}");
+        }
 
-        return $response;
+        $this->checkResponse($response->object());
+
+        return $response->object();
     }
 
     /**
@@ -127,7 +137,6 @@ class Rocket
             throw new RocketException("Property: 'success' must be set in RocketChat response");
         }
 
-        // TODO
         if (! $response->success) {
             if (isset($response->error) && isset($response->errorType)) {
                 throw new RocketException("Request wasn't successful. Reason: '$response->error'", $response->errorType);

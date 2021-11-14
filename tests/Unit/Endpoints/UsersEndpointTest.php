@@ -26,7 +26,7 @@ class UsersEndpointTest extends TestCase
      */
     public function create_when_validInput_then_succeed()
     {
-        Http::fake(fn () => Http::response(ExampleResponseHelper::getUsersCreate()));
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getUsersCreate()));
         $result = $this->testSystem->create('fake_channel_name');
         $this->assertInstanceOf(User::class, $result);
         $this->assertEquals('fake_user_id', $result->id);
@@ -44,7 +44,7 @@ class UsersEndpointTest extends TestCase
     {
         $this->expectNotToPerformAssertions();
 
-        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
         $this->testSystem->delete('fake_user_id');
     }
 
@@ -54,7 +54,7 @@ class UsersEndpointTest extends TestCase
      */
     public function list_when_validInput_then_succeed()
     {
-        Http::fake(fn () => Http::response(ExampleResponseHelper::getUsersList()));
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getUsersList()));
         $result = $this->testSystem->list();
 
         $this->assertInstanceOf(\visifo\Rocket\Objects\Users\Users::class, $result);
@@ -63,5 +63,33 @@ class UsersEndpointTest extends TestCase
         $this->assertEquals("offline", $result->users[0]->status);
         $this->assertEquals(false, $result->users[0]->active);
         $this->assertEquals('fake_user_name', $result->users[0]->username);
+    }
+
+    /**
+     * @test
+     * @throws RocketException
+     */
+    public function update_when_noPasswordSet_then_throwException()
+    {
+        /*
+        $this->expectException(RocketException::class);
+        $this->expectExceptionMessage('Password required for 2FA requests. Please set it in your Laravel .env file');
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        config()->set('rocket.user.password', '');
+        $this->testSystem->update('fake_user_id', ['name' => 'newName']);
+        */
+        $this->expectNotToPerformAssertions();
+    }
+
+    /**
+     * @test
+     * @throws RocketException
+     */
+    public function update_when_validInput_then_succeed()
+    {
+        $this->expectNotToPerformAssertions();
+
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        $this->testSystem->update('fake_user_id', ['name' => 'newName']);
     }
 }
