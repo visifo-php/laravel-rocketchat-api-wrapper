@@ -8,8 +8,9 @@ parameters:
         - config
         - database
         - tests
+    excludePaths:
+        - src/Deserializer.php
     tmpDir: build/phpstan
     checkOctaneCompatibility: true
     checkModelProperties: true
     checkMissingIterableValueType: false
-

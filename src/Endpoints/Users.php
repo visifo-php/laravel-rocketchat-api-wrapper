@@ -63,4 +63,19 @@ class Users extends Endpoint
 
         return Deserializer::deserialize($response, \visifo\Rocket\Objects\Users\Users::class);
     }
+
+    /**
+     * @throws RocketException
+     */
+    public function update(string $userId, array $data): void
+    {
+        $this->checkEmptyString($userId);
+
+        if (empty($data)) {
+            throw new RocketException('data cant be empty');
+        }
+
+        $data = get_defined_vars();
+        $this->rocket->postWith2FA("users.update", $data);
+    }
 }

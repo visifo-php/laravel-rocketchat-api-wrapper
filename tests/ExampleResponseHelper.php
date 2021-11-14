@@ -110,6 +110,13 @@ class ExampleResponseHelper
         return self::getJson(__DIR__ . '/Responses/Users/Create.json');
     }
 
+    public static function getUsersCreateAsObject(): object
+    {
+        $json = file_get_contents(__DIR__ . '/Responses/Users/Create.json');
+
+        return json_decode($json);
+    }
+
     /**
      * @throws RocketException
      */

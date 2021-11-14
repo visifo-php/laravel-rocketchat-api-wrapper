@@ -29,11 +29,11 @@ with the RocketChat API in your Laravel .env
 ```dotenv
 ROCKET_URL=your-rocketchat.com
 
-ROCKET_USER_ID=123456
-ROCKET_AUTH_TOKEN=987654
+ROCKET_USER_ID=RLhxwWHn9RjiWjtdG
+ROCKET_AUTH_TOKEN=Z9__Y1_Es6OB2kMf4dBD3I6qygRT3s-Lla67pf8AU1p
 #or
-ROCKET_USER_NAME=myrocketuser
-Rocket_USER_PASSWORD=mypassword
+ROCKET_USER_NAME=myRocketUser
+Rocket_USER_PASSWORD=myPassword
 ```
 
 ## Usage
@@ -41,11 +41,11 @@ Rocket_USER_PASSWORD=mypassword
 You can send Requests to an Endpoint via the Endpoint Objects. You can get them from the RocketChat Client like this
 
 ```php
-$channelsEndpoint = \visifo\Rocket\rocketChat()->channels;
-$chatEndpoint = \visifo\Rocket\rocketChat()->chat;
-$commandsEndpoint = \visifo\Rocket\rocketChat()->commands;
-$rolesEndpoint = \visifo\Rocket\rocketChat()->roles;
-$usersEndpoint = \visifo\Rocket\rocketChat()->users;
+$channelsEndpoint = \visifo\Rocket\rocketChat()->channels();
+$chatEndpoint = \visifo\Rocket\rocketChat()->chat();
+$commandsEndpoint = \visifo\Rocket\rocketChat()->commands();
+$rolesEndpoint = \visifo\Rocket\rocketChat()->roles();
+$usersEndpoint = \visifo\Rocket\rocketChat()->users();
 ```
 
 From there you can make API calls

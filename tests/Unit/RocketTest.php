@@ -2,8 +2,9 @@
 
 namespace visifo\Rocket\Tests\Unit;
 
-use Illuminate\Http\Client\RequestException;
 use Illuminate\Support\Facades\Http;
+use ReflectionClass;
+use ReflectionException;
 use stdClass;
 use visifo\Rocket\Rocket;
 use function visifo\Rocket\rocketChat;
@@ -29,6 +30,56 @@ class RocketTest extends TestCase
 
         $this->assertNotNull($result);
         $this->assertInstanceOf(Rocket::class, $result);
+    }
+
+    /** @test
+     * @throws ReflectionException
+     */
+    public function getInstance_when_creatingInstance_then_headersAreFine()
+    {
+        $result = rocketChat();
+
+        $expectedHeaders = [
+            'X-User-Id' => 'RLhxwWHn9RjiWjtdG',
+            'X-Auth-Token' => 'Z9__Y1_Es6OB2kMf4dBD3I6qygRT3s-Lla67pf8AU1p',
+            'Accept' => 'application/json',
+        ];
+
+        $resultReflection = new ReflectionClass($result);
+
+        $resultHeaders = $resultReflection->getProperty('headers');
+        $resultHeaders->setAccessible(true);
+
+        $this->assertEquals($expectedHeaders, $resultHeaders->getValue($result));
+    }
+
+    /** @test
+     * @throws ReflectionException
+     */
+    public function getInstance_when_creatingInstance_then_configIsPresent()
+    {
+        $result = rocketChat();
+        $resultReflection = new ReflectionClass($result);
+
+        $resultUrl = $resultReflection->getProperty('url');
+        $resultUserId = $resultReflection->getProperty('userId');
+        $resultUserPassword = $resultReflection->getProperty('password');
+        $resultAuthToken = $resultReflection->getProperty('authToken');
+
+        $resultUrl->setAccessible(true);
+        $resultUserId->setAccessible(true);
+        $resultUserPassword->setAccessible(true);
+        $resultAuthToken->setAccessible(true);
+
+        $this->assertNotEmpty($resultUrl->getValue($result));
+        $this->assertNotEmpty($resultUserId->getValue($result));
+        $this->assertNotEmpty($resultUserPassword->getValue($result));
+        $this->assertNotEmpty($resultAuthToken->getValue($result));
+
+        $this->assertEquals('www.example.com', $resultUrl->getValue($result));
+        $this->assertEquals('RLhxwWHn9RjiWjtdG', $resultUserId->getValue($result));
+        $this->assertEquals('Z9__Y1_Es6OB2kMf4dBD3I6qygRT3s-Lla67pf8AU1p', $resultAuthToken->getValue($result));
+        $this->assertEquals('password', $resultUserPassword->getValue($result));
     }
 
     /**
@@ -63,10 +114,10 @@ class RocketTest extends TestCase
      */
     public function post_when_statusNot200_then_throwException()
     {
-        Http::fake(fn () => Http::response(ExampleResponseHelper::successWithObject(), 401));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getUnsuccessfulWithException(), 401));
 
-        $this->expectException(RequestException::class);
-        $this->expectExceptionMessage('HTTP request returned status code 401');
+        $this->expectException(RocketException::class);
+        $this->expectExceptionMessage('Request failed with Code: 401');
 
         rocketChat()->post('fake.endpoint', ['fake' => 'data']);
     }
@@ -113,8 +164,8 @@ class RocketTest extends TestCase
      */
     public function get_when_statusNot200_then_throwException()
     {
-        $this->expectException(RequestException::class);
-        $this->expectExceptionMessage('HTTP request returned status code 401:');
+        $this->expectException(RocketException::class);
+        $this->expectExceptionMessage('Request failed with Code: 401');
         Http::fake(fn () => Http::response(ExampleResponseHelper::successWithObject(), 401));
 
         rocketChat()->get('fake.endpoint');

@@ -4,6 +4,7 @@ namespace visifo\Rocket;
 
 use Exception;
 use ReflectionClass;
+use ReflectionNamedType;
 use ReflectionProperty;
 
 class Deserializer
@@ -116,15 +117,24 @@ class Deserializer
         }
     }
 
+    /**
+     * @throws RocketException
+     */
     private static function getObjectClass(ReflectionProperty $property, &$classInstance)
     {
         $propertyType = $property->getType();
         $propertyName = $property->getName();
-        $propertyType = $propertyType->getName();
-        $subClass = new $propertyType();
-        $classInstance->{$propertyName} = $subClass;
 
-        return $subClass;
+        if ($propertyType instanceof ReflectionNamedType) {
+            $propertyType = $propertyType->getName();
+            $subClass = new $propertyType();
+            $classInstance->{$propertyName} = $subClass;
+
+            return $subClass;
+        }
+        // See: https://github.com/phpstan/phpstan/issues/3937
+        // https://phpstan.org/r/afe6be72-823b-42b6-9241-43f578bdfc2f
+        throw new RocketException('Wrong ReflectionType!');
     }
 
     /**

@@ -4,7 +4,9 @@ namespace visifo\Rocket\Tests\Unit\Deserializer;
 
 use stdClass;
 use visifo\Rocket\Deserializer;
+use visifo\Rocket\Objects\Users\User;
 use visifo\Rocket\RocketException;
+use visifo\Rocket\Tests\ExampleResponseHelper;
 use visifo\Rocket\Tests\TestCase;
 
 class DeserializerTest extends TestCase
@@ -106,9 +108,18 @@ class DeserializerTest extends TestCase
 
     /**
      * @test
+     * @throws RocketException
      */
     public function deserialize_when_validInput_then_throwException()
     {
-        $this->expectNotToPerformAssertions();
+        $object = ExampleResponseHelper::getUsersCreateAsObject();
+        $result = Deserializer::deserialize($object, User::class);
+
+        $this->assertInstanceOf(User::class, $result);
+        $this->assertEquals('fake_user_id', $result->id);
+        $this->assertEquals('fake_user_name', $result->username);
+        $this->assertEquals('user', $result->type);
+        $this->assertEquals('offline', $result->status);
+        $this->assertEquals(true, $result->active);
     }
 }
