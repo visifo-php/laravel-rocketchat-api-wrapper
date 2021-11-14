@@ -1,9 +1,13 @@
 # Rocket.chat API wrapper for Laravel.
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/visifo-php/laravel-rocketchat-api-wrapper.svg?style=flat-square)](https://packagist.org/packages/visifo-php/laravel-rocketchat-api-wrapper)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/visifo-php/laravel-rocketchat-api-wrapper/run-tests?label=tests)](https://github.com/visifo-php/laravel-rocketchat-api-wrapper/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/visifo-php/laravel-rocketchat-api-wrapper/Check%20&%20fix%20styling?label=code%20style)](https://github.com/visifo-php/laravel-rocketchat-api-wrapper/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/visifo-php/laravel-rocketchat-api-wrapper.svg?style=flat-square)](https://packagist.org/packages/visifo-php/laravel-rocketchat-api-wrapper?include_prereleases)
 [![Total Downloads](https://img.shields.io/packagist/dt/visifo-php/laravel-rocketchat-api-wrapper.svg?style=flat-square)](https://packagist.org/packages/visifo-php/laravel-rocketchat-api-wrapper)
+![Packagist PHP Version Support](https://img.shields.io/packagist/php-v/visifo-php/laravel-rocketchat-api-wrapper)
+![Packagist License](https://img.shields.io/packagist/l/visifo-php/laravel-rocketchat-api-wrapper)
+
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/visifo-php/laravel-rocketchat-api-wrapper/Check%20&%20fix%20styling?label=code%20style)](https://github.com/visifo-php/laravel-rocketchat-api-wrapper/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/visifo-php/laravel-rocketchat-api-wrapper/run-tests?label=tests)](https://github.com/visifo-php/laravel-rocketchat-api-wrapper/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![codecov](https://codecov.io/gh/visifo-php/laravel-rocketchat-api-wrapper/branch/main/graph/badge.svg?token=0L9OG0PM9L)](https://codecov.io/gh/visifo-php/laravel-rocketchat-api-wrapper)
 
 ---
 
