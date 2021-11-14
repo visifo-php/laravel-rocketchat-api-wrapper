@@ -12,7 +12,7 @@ use visifo\Rocket\Endpoints\Commands;
 use visifo\Rocket\Endpoints\Roles;
 use visifo\Rocket\Endpoints\Users;
 
-class Rocket
+final class Rocket
 {
     private static Rocket $instance;
 
@@ -55,7 +55,7 @@ class Rocket
     public static function getInstance(): Rocket
     {
         if (! isset(self::$instance)) {
-            self::$instance = new static();
+            self::$instance = new self();
         }
 
         return self::$instance;
