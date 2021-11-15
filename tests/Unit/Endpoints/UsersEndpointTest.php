@@ -3,7 +3,6 @@
 namespace visifo\Rocket\Tests\Unit\Endpoints;
 
 use Illuminate\Support\Facades\Http;
-use ReflectionException;
 use visifo\Rocket\Endpoints\Users;
 use visifo\Rocket\Objects\Users\User;
 use function visifo\Rocket\rocketChat;
