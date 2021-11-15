@@ -70,11 +70,9 @@ final class Rocket
             throw new RocketException('post data array cant be empty');
         }
 
-        if ($data) {
-            foreach ($data as $key => $value) {
-                if (gettype($value) == 'string' && empty($value)) {
-                    throw new RocketException("Argument '$key' in Endpoint '$endpoint' cant be empty. Failed to send post request");
-                }
+        foreach ($data as $key => $value) {
+            if (gettype($value) == 'string' && empty($value)) {
+                throw new RocketException("Argument '$key' in Endpoint '$endpoint' cant be empty. Failed to send post request");
             }
         }
 
@@ -128,11 +126,9 @@ final class Rocket
             throw new RocketException('Password required for 2FA requests. Please set it in your Laravel .env file');
         }
 
-        if ($data) {
-            foreach ($data as $key => $value) {
-                if (gettype($value) == 'string' && empty($value)) {
-                    throw new RocketException("Argument '$key' in Endpoint '$endpoint' cant be empty. Failed to send postWith2FA request");
-                }
+        foreach ($data as $key => $value) {
+            if (gettype($value) == 'string' && empty($value)) {
+                throw new RocketException("Argument '$key' in Endpoint '$endpoint' cant be empty. Failed to send postWith2FA request");
             }
         }
 
