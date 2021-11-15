@@ -45,10 +45,9 @@ class ChatEndpointTest extends TestCase
      */
     public function delete_when_validInput_then_succeed()
     {
-        $this->expectNotToPerformAssertions();
-
         Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
         $this->testSystem->delete('fake_room_id', 'fake_message_id');
+        $this->assertTrue(true);
     }
 
     /**
@@ -76,10 +75,9 @@ class ChatEndpointTest extends TestCase
      */
     public function pinMessage_when_validInput_then_succeed()
     {
-        $this->expectNotToPerformAssertions();
-
         Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
         $this->testSystem->pinMessage('fake_message_id');
+        $this->assertTrue(true);
     }
 
     /**
@@ -88,10 +86,9 @@ class ChatEndpointTest extends TestCase
      */
     public function starMessage_when_validInput_then_succeed()
     {
-        $this->expectNotToPerformAssertions();
-
         Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
         $this->testSystem->starMessage('fake_message_id');
+        $this->assertTrue(true);
     }
 
     /**
@@ -100,10 +97,9 @@ class ChatEndpointTest extends TestCase
      */
     public function react_when_validInput_then_succeed()
     {
-        $this->expectNotToPerformAssertions();
-
         Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
         $this->testSystem->react('fake_message_id', 'smile');
+        $this->assertTrue(true);
     }
 
     /**
@@ -112,10 +108,9 @@ class ChatEndpointTest extends TestCase
      */
     public function unfollowMessage_when_validInput_then_succeed()
     {
-        $this->expectNotToPerformAssertions();
-
         Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
         $this->testSystem->unfollowMessage('fake_message_id');
+        $this->assertTrue(true);
     }
 
     /**
@@ -124,9 +119,8 @@ class ChatEndpointTest extends TestCase
      */
     public function unPinMessage_when_validInput_then_succeed()
     {
-        $this->expectNotToPerformAssertions();
-
         Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
         $this->testSystem->unPinMessage('fake_message_id');
+        $this->assertTrue(true);
     }
 }

@@ -75,10 +75,8 @@ class UsersEndpointTest extends TestCase
      */
     public function update_when_validInput_then_succeed()
     {
-        $this->expectNotToPerformAssertions();
-
         Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
-
         $this->testSystem->update('fake_user_id', ['name' => 'newName']);
+        $this->assertTrue(true);
     }
 }

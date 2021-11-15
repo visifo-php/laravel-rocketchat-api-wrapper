@@ -89,7 +89,6 @@ class RocketTest extends TestCase
     public function post_when_minimalValidInput_then_succeed()
     {
         Http::fake(fn () => Http::response(ExampleResponseHelper::successWithObject()));
-
         $result = rocketChat()->post('fake.endpoint', ['fake' => 'data']);
 
         $this->assertIsObject($result);
@@ -129,7 +128,6 @@ class RocketTest extends TestCase
         $this->expectExceptionMessage("Property: 'success' must be set in RocketChat response");
 
         Http::fake(fn () => Http::response(['fake' => 'data']));
-
         rocketChat()->post('fake.endpoint', ['fake' => 'data']);
     }
 
@@ -140,7 +138,6 @@ class RocketTest extends TestCase
         $this->expectExceptionMessage("Request wasn't successful. Reason: 'FakeError'");
 
         Http::fake(fn () => Http::response(ExampleResponseHelper::getUnsuccessfulWithException()));
-
         rocketChat()->post('fake.endpoint', ['fake' => 'data']);
     }
 
@@ -150,7 +147,6 @@ class RocketTest extends TestCase
     public function get_when_validInput_then_succeed()
     {
         Http::fake(fn () => Http::response(ExampleResponseHelper::successWithObject()));
-
         $result = rocketChat()->get('fake.endpoint');
 
         $this->assertNotNull($result);
@@ -166,19 +162,18 @@ class RocketTest extends TestCase
     {
         $this->expectException(RocketException::class);
         $this->expectExceptionMessage('Request failed with Code: 401');
-        Http::fake(fn () => Http::response(ExampleResponseHelper::successWithObject(), 401));
 
+        Http::fake(fn () => Http::response(ExampleResponseHelper::successWithObject(), 401));
         rocketChat()->get('fake.endpoint');
     }
 
     /** @test */
     public function get_when_successNotSet_then_throwException()
     {
-        Http::fake(fn () => Http::response(['fake' => 'data']));
-
         $this->expectException(RocketException::class);
         $this->expectExceptionMessage("Property: 'success' must be set in RocketChat response");
 
+        Http::fake(fn () => Http::response(['fake' => 'data']));
         rocketChat()->get('fake.endpoint');
     }
 
@@ -203,7 +198,6 @@ class RocketTest extends TestCase
         $this->expectExceptionMessage("Argument 'emptyString' in Endpoint 'fake.endpoint' cant be empty. Failed to send post request");
 
         Http::fake(fn () => Http::response(ExampleResponseHelper::successWithObject()));
-
         rocketChat()->post('fake.endpoint', ['emptyString' => '']);
     }
 
@@ -217,7 +211,6 @@ class RocketTest extends TestCase
         $this->expectExceptionMessage("Argument 'emptyString' in Endpoint 'fake.endpoint' cant be empty. Failed to send get request");
 
         Http::fake(fn () => Http::response(ExampleResponseHelper::successWithObject()));
-
         rocketChat()->get('fake.endpoint', ['emptyString' => '']);
     }
 
@@ -231,7 +224,6 @@ class RocketTest extends TestCase
         $this->expectExceptionMessage("Argument 'emptyString' in Endpoint 'fake.endpoint' cant be empty. Failed to send postWith2FA request");
 
         Http::fake(fn () => Http::response(ExampleResponseHelper::successWithObject()));
-
         rocketChat()->postWith2FA('fake.endpoint', ['emptyString' => '']);
     }
 }
