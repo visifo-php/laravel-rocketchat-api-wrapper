@@ -23,7 +23,6 @@ class Users extends Endpoint
      */
     public function create(string $name, bool $readOnly = false, array $members = []): User
     {
-        $this->checkEmptyString($name);
         $data = get_defined_vars();
         $response = $this->rocket->post("users.create", $data);
 
@@ -35,7 +34,6 @@ class Users extends Endpoint
      */
     public function delete(string $userId): void
     {
-        $this->checkEmptyString($userId);
         $data = get_defined_vars();
         $this->rocket->post("users.delete", $data);
     }
@@ -45,11 +43,6 @@ class Users extends Endpoint
      */
     public function register(string $username, string $email, string $pass, string $name): void
     {
-        $this->checkEmptyString($username);
-        $this->checkEmptyString($email);
-        $this->checkEmptyString($pass);
-        $this->checkEmptyString($name);
-
         $data = get_defined_vars();
         $this->rocket->post("users.register", $data);
     }
@@ -69,8 +62,6 @@ class Users extends Endpoint
      */
     public function update(string $userId, array $data): void
     {
-        $this->checkEmptyString($userId);
-
         if (empty($data)) {
             throw new RocketException('data cant be empty');
         }

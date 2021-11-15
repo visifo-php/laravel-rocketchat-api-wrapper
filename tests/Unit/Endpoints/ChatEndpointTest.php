@@ -25,18 +25,6 @@ class ChatEndpointTest extends TestCase
      * @test
      * @throws RocketException
      */
-    public function postMessage_when_emptyString_then_throwException()
-    {
-        $this->expectException(RocketException::class);
-        $this->expectExceptionMessage("String in function argument cant be empty");
-
-        $this->testSystem->postMessage('', '', '');
-    }
-
-    /**
-     * @test
-     * @throws RocketException
-     */
     public function postMessage_when_validInput_then_succeed()
     {
         Http::fake(fn () => Http::response(ExampleResponseHelper::getChatPostMessage()));

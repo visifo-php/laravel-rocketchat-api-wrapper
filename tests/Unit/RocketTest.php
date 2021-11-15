@@ -192,4 +192,46 @@ class RocketTest extends TestCase
 
         rocketChat()->get('fake.endpoint');
     }
+
+    /**
+     * @test
+     * @throws RocketException
+     */
+    public function post_when_emptyStringInData_then_throwException()
+    {
+        $this->expectException(RocketException::class);
+        $this->expectExceptionMessage("Argument 'emptyString' in Endpoint 'fake.endpoint' cant be empty. Failed to send post request");
+
+        Http::fake(fn () => Http::response(ExampleResponseHelper::successWithObject()));
+
+        rocketChat()->post('fake.endpoint', ['emptyString' => '']);
+    }
+
+    /**
+     * @test
+     * @throws RocketException
+     */
+    public function get_when_emptyStringInQuery_then_throwException()
+    {
+        $this->expectException(RocketException::class);
+        $this->expectExceptionMessage("Argument 'emptyString' in Endpoint 'fake.endpoint' cant be empty. Failed to send get request");
+
+        Http::fake(fn () => Http::response(ExampleResponseHelper::successWithObject()));
+
+        rocketChat()->get('fake.endpoint', ['emptyString' => '']);
+    }
+
+    /**
+     * @test
+     * @throws RocketException
+     */
+    public function postWith2FA_when_emptyStringInData_then_throwException()
+    {
+        $this->expectException(RocketException::class);
+        $this->expectExceptionMessage("Argument 'emptyString' in Endpoint 'fake.endpoint' cant be empty. Failed to send postWith2FA request");
+
+        Http::fake(fn () => Http::response(ExampleResponseHelper::successWithObject()));
+
+        rocketChat()->postWith2FA('fake.endpoint', ['emptyString' => '']);
+    }
 }

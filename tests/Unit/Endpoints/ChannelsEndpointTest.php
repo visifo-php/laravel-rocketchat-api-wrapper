@@ -25,18 +25,6 @@ class ChannelsEndpointTest extends TestCase
      * @test
      * @throws RocketException
      */
-    public function create_when_emptyString_then_throwException()
-    {
-        $this->expectException(RocketException::class);
-        $this->expectExceptionMessage("String in function argument cant be empty");
-
-        $this->testSystem->create('');
-    }
-
-    /**
-     * @test
-     * @throws RocketException
-     */
     public function create_when_channelAlreadyExist_then_throwException()
     {
         $this->expectException(RocketException::class);

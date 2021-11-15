@@ -23,7 +23,6 @@ class Commands extends Endpoint
      */
     public function get(string $command): Command
     {
-        $this->checkEmptyString($command);
         $query = get_defined_vars();
         $response = $this->rocket->get("commands.get", $query);
 
@@ -45,9 +44,6 @@ class Commands extends Endpoint
      */
     public function run(string $command, string $roomId, ?string $params = null): void
     {
-        $this->checkEmptyString($command);
-        $this->checkEmptyString($roomId);
-
         if (empty($params)) {
             unset($params);
         }

@@ -54,7 +54,7 @@ final class Rocket
 
     public static function getInstance(): Rocket
     {
-        if (! isset(self::$instance)) {
+        if (!isset(self::$instance)) {
             self::$instance = new self();
         }
 
@@ -68,6 +68,14 @@ final class Rocket
     {
         if (empty($data)) {
             throw new RocketException('post data array cant be empty');
+        }
+
+        if ($data) {
+            foreach ($data as $key => $value) {
+                if (gettype($value) == 'string' && empty($value)) {
+                    throw new RocketException("Argument '$key' in Endpoint '$endpoint' cant be empty. Failed to send post request");
+                }
+            }
         }
 
         $url = $this->url . '/api/v1/' . $endpoint;
@@ -91,6 +99,15 @@ final class Rocket
     public function get(string $endpoint, ?array $query = null): object
     {
         $url = $this->url . '/api/v1/' . $endpoint;
+
+        if ($query) {
+            foreach ($query as $key => $value) {
+                if (gettype($value) == 'string' && empty($value)) {
+                    throw new RocketException("Argument '$key' in Endpoint '$endpoint' cant be empty. Failed to send get request");
+                }
+            }
+        }
+
         $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($this->headers)->get($url, $query);
 
         if ($response->failed()) {
@@ -109,6 +126,14 @@ final class Rocket
     {
         if (empty($this->password)) {
             throw new RocketException('Password required for 2FA requests. Please set it in your Laravel .env file');
+        }
+
+        if ($data) {
+            foreach ($data as $key => $value) {
+                if (gettype($value) == 'string' && empty($value)) {
+                    throw new RocketException("Argument '$key' in Endpoint '$endpoint' cant be empty. Failed to send postWith2FA request");
+                }
+            }
         }
 
         $url = $this->url . '/api/v1/' . $endpoint;
@@ -133,11 +158,11 @@ final class Rocket
      */
     public function checkResponse(object $response)
     {
-        if (! isset($response->success)) {
+        if (!isset($response->success)) {
             throw new RocketException("Property: 'success' must be set in RocketChat response");
         }
 
-        if (! $response->success) {
+        if (!$response->success) {
             if (isset($response->error) && isset($response->errorType)) {
                 throw new RocketException("Request wasn't successful. Reason: '$response->error'", $response->errorType);
             }

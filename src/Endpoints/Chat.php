@@ -27,8 +27,6 @@ class Chat extends Endpoint
             unset($channel);
         }
 
-        $this->checkEmptyString($roomId);
-        $this->checkEmptyString($text);
         $data = get_defined_vars();
         $response = $this->rocket->post("chat.postMessage", $data);
 
@@ -40,8 +38,6 @@ class Chat extends Endpoint
      */
     public function delete(string $roomId, string $msgId, bool $asUser = false): void
     {
-        $this->checkEmptyString($roomId);
-        $this->checkEmptyString($msgId);
         $data = get_defined_vars();
         $this->rocket->post("chat.delete", $data);
     }
@@ -51,7 +47,6 @@ class Chat extends Endpoint
      */
     public function followMessage(string $mid): void
     {
-        $this->checkEmptyString($mid);
         $data = get_defined_vars();
         $this->rocket->post("chat.followMessage", $data);
     }
@@ -61,7 +56,6 @@ class Chat extends Endpoint
      */
     public function getMessage(string $msgId): Message
     {
-        $this->checkEmptyString($msgId);
         $query = get_defined_vars();
         $response = $this->rocket->get("chat.getMessage", $query);
 
@@ -73,7 +67,6 @@ class Chat extends Endpoint
      */
     public function pinMessage(string $messageId): void
     {
-        $this->checkEmptyString($messageId);
         $data = get_defined_vars();
         $this->rocket->post("chat.pinMessage", $data);
     }
@@ -83,8 +76,6 @@ class Chat extends Endpoint
      */
     public function react(string $messageId, string $emoji): void
     {
-        $this->checkEmptyString($messageId);
-        $this->checkEmptyString($emoji);
         $data = get_defined_vars();
         $this->rocket->post("chat.react", $data);
     }
@@ -94,7 +85,6 @@ class Chat extends Endpoint
      */
     public function starMessage(string $messageId): void
     {
-        $this->checkEmptyString($messageId);
         $data = get_defined_vars();
         $this->rocket->post("chat.starMessage", $data);
     }
@@ -104,7 +94,6 @@ class Chat extends Endpoint
      */
     public function unfollowMessage(string $mid): void
     {
-        $this->checkEmptyString($mid);
         $data = get_defined_vars();
         $this->rocket->post("chat.unfollowMessage", $data);
     }
@@ -114,7 +103,6 @@ class Chat extends Endpoint
      */
     public function unPinMessage(string $messageId): void
     {
-        $this->checkEmptyString($messageId);
         $data = get_defined_vars();
         $this->rocket->post("chat.unPinMessage", $data);
     }

@@ -73,7 +73,6 @@ class UsersEndpointTest extends TestCase
     /**
      * @test
      * @throws RocketException
-     * @throws ReflectionException
      */
     public function update_when_validInput_then_succeed()
     {
