@@ -77,6 +77,24 @@ class Users extends Endpoint
     /**
      * @throws RocketException
      */
+    public function setAvatar(string $avatarUrl, string $userId = '', string $username = ''): void
+    {
+        if ($userId) {
+            $data['userId'] = $userId;
+        } elseif ($username) {
+            $data['username'] = $username;
+        } else {
+            throw new RocketException("userId or username must be set to get Users Info");
+        }
+
+        $data['avatarUrl'] = $avatarUrl;
+
+        $this->rocket->get("users.setAvatar", $data);
+    }
+
+    /**
+     * @throws RocketException
+     */
     public function list(): \visifo\Rocket\Objects\Users\Users
     {
         $response = $this->rocket->get("users.list");
