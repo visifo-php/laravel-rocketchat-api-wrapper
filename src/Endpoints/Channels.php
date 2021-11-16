@@ -303,6 +303,7 @@ class Channels extends Endpoint
     public function list(): \visifo\Rocket\Objects\Channels\Channels
     {
         $response = $this->rocket->get("channels.list");
+
         return Deserializer::deserialize($response, \visifo\Rocket\Objects\Channels\Channels::class);
     }
 }
