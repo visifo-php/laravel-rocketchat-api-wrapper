@@ -50,6 +50,23 @@ class Users extends Endpoint
     /**
      * @throws RocketException
      */
+    public function info(string $userId = '', string $username = ''): User
+    {
+        if ($userId) {
+            $query['userId'] = $userId;
+        } elseif ($username) {
+            $query['username'] = $username;
+        } else {
+            throw new RocketException("userId or username must be set to get Users Info");
+        }
+
+        $response = $this->rocket->get("users.info", $query);
+        return Deserializer::deserialize($response, User::class);
+    }
+
+    /**
+     * @throws RocketException
+     */
     public function list(): \visifo\Rocket\Objects\Users\Users
     {
         $response = $this->rocket->get("users.list");

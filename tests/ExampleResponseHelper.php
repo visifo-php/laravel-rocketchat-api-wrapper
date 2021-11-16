@@ -118,6 +118,14 @@ class ExampleResponseHelper
         return self::getJson(__DIR__ . '/Responses/Channels/List.json');
     }
 
+    /**
+     * @throws RocketException
+     */
+    public static function getUsersInfo(): array
+    {
+        return self::getJson(__DIR__ . '/Responses/Users/Info.json');
+    }
+
     public static function getUsersCreateAsObject(): object
     {
         $json = file_get_contents(__DIR__ . '/Responses/Users/Create.json');
