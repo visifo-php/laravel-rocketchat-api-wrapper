@@ -32,9 +32,18 @@ class Users extends Endpoint
     /**
      * @throws RocketException
      */
-    public function delete(string $userId): void
+    public function delete(string $userId = '', string $username = '', bool $confirmRelinquish = false): void
     {
-        $data = get_defined_vars();
+        if ($userId) {
+            $data['userId'] = $userId;
+        } elseif ($username) {
+            $data['username'] = $username;
+        } else {
+            throw new RocketException("userId or username must be set to get Users Info");
+        }
+
+        $data['confirmRelinquish'] = $confirmRelinquish;
+
         $this->rocket->post("users.delete", $data);
     }
 
