@@ -27,7 +27,7 @@ class UsersEndpointTest extends TestCase
      */
     public function create_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getUsersCreate()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getUsersCreate()));
 
         $userCreate = new UserCreate('email', 'username', 'name', 'password');
         $result = $this->testSystem->create($userCreate);
@@ -48,7 +48,7 @@ class UsersEndpointTest extends TestCase
     {
         $this->expectNotToPerformAssertions();
 
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
 
         $this->testSystem->delete('fake_user_id');
     }
@@ -59,7 +59,7 @@ class UsersEndpointTest extends TestCase
      */
     public function list_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getUsersList()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getUsersList()));
 
         $result = $this->testSystem->list();
 
@@ -77,7 +77,7 @@ class UsersEndpointTest extends TestCase
      */
     public function update_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
         $this->testSystem->update('fake_user_id', ['name' => 'newName']);
         $this->assertTrue(true);
     }
@@ -88,7 +88,7 @@ class UsersEndpointTest extends TestCase
      */
     public function info_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getUsersInfo()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getUsersInfo()));
         $result = $this->testSystem->info('fake_user_id');
 
         $this->assertInstanceOf(User::class, $result);
@@ -105,7 +105,7 @@ class UsersEndpointTest extends TestCase
      */
     public function setAvatar_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
         $this->testSystem->setAvatar('fake_avatar_url', 'userId');
         $this->assertTrue(true);
     }
