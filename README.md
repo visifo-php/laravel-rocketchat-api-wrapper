@@ -1,20 +1,14 @@
 # Rocket.chat API wrapper for Laravel.
 
 [![Latest Stable Version](http://poser.pugx.org/visifo-php/laravel-rocketchat-api-wrapper/v)](https://packagist.org/packages/visifo-php/laravel-rocketchat-api-wrapper)
+[![Total Downloads](http://poser.pugx.org/visifo-php/laravel-rocketchat-api-wrapper/downloads)](https://packagist.org/packages/visifo-php/laravel-rocketchat-api-wrapper)
 [![License](http://poser.pugx.org/visifo-php/laravel-rocketchat-api-wrapper/license)](https://packagist.org/packages/visifo-php/laravel-rocketchat-api-wrapper)
 [![PHP Version Require](http://poser.pugx.org/visifo-php/laravel-rocketchat-api-wrapper/require/php)](https://packagist.org/packages/visifo-php/laravel-rocketchat-api-wrapper)
-[![Latest Unstable Version](http://poser.pugx.org/visifo-php/laravel-rocketchat-api-wrapper/v/unstable)](https://packagist.org/packages/visifo-php/laravel-rocketchat-api-wrapper)
 
-[![Total Downloads](http://poser.pugx.org/visifo-php/laravel-rocketchat-api-wrapper/downloads)](https://packagist.org/packages/visifo-php/laravel-rocketchat-api-wrapper)
-[![Monthly Downloads](http://poser.pugx.org/visifo-php/laravel-rocketchat-api-wrapper/d/monthly)](https://packagist.org/packages/visifo-php/laravel-rocketchat-api-wrapper)
-[![Daily Downloads](http://poser.pugx.org/visifo-php/laravel-rocketchat-api-wrapper/d/daily)](https://packagist.org/packages/visifo-php/laravel-rocketchat-api-wrapper)
-
-[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/visifo-php/laravel-rocketchat-api-wrapper/Check%20&%20fix%20styling?label=code%20style)](https://github.com/visifo-php/laravel-rocketchat-api-wrapper/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
-[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/visifo-php/laravel-rocketchat-api-wrapper/run-tests?label=tests)](https://github.com/visifo-php/laravel-rocketchat-api-wrapper/actions?query=workflow%3Arun-tests+branch%3Amain)
 [![codecov](https://codecov.io/gh/visifo-php/laravel-rocketchat-api-wrapper/branch/main/graph/badge.svg?token=0L9OG0PM9L)](https://codecov.io/gh/visifo-php/laravel-rocketchat-api-wrapper)
+[![GitHub Tests Action Status](https://img.shields.io/github/workflow/status/visifo-php/laravel-rocketchat-api-wrapper/run-tests?label=tests)](https://github.com/visifo-php/laravel-rocketchat-api-wrapper/actions?query=workflow%3Arun-tests+branch%3Amain)
+[![GitHub Code Style Action Status](https://img.shields.io/github/workflow/status/visifo-php/laravel-rocketchat-api-wrapper/Check%20&%20fix%20styling?label=code%20style)](https://github.com/visifo-php/laravel-rocketchat-api-wrapper/actions?query=workflow%3A"Check+%26+fix+styling"+branch%3Amain)
 
-[![Dependents](http://poser.pugx.org/visifo-php/laravel-rocketchat-api-wrapper/dependents)](https://packagist.org/packages/visifo-php/laravel-rocketchat-api-wrapper)
-[![Suggesters](http://poser.pugx.org/visifo-php/laravel-rocketchat-api-wrapper/suggesters)](https://packagist.org/packages/visifo-php/laravel-rocketchat-api-wrapper)
 [![composer.lock](http://poser.pugx.org/visifo-php/laravel-rocketchat-api-wrapper/composerlock)](https://packagist.org/packages/visifo-php/laravel-rocketchat-api-wrapper)
 [![.gitattributes](http://poser.pugx.org/visifo-php/laravel-rocketchat-api-wrapper/gitattributes)](https://packagist.org/packages/visifo-php/laravel-rocketchat-api-wrapper)
 
