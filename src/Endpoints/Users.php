@@ -61,6 +61,7 @@ class Users extends Endpoint
         }
 
         $response = $this->rocket->get("users.info", $query);
+
         return Deserializer::deserialize($response, User::class);
     }
 
