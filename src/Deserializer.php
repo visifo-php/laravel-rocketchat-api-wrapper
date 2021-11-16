@@ -4,7 +4,6 @@ namespace visifo\Rocket;
 
 use Exception;
 use ReflectionClass;
-use ReflectionNamedType;
 use ReflectionProperty;
 
 class Deserializer
@@ -50,7 +49,7 @@ class Deserializer
                     $isNullable = true;
                 }
 
-                if (!property_exists($response, $propertyName)) {
+                if (! property_exists($response, $propertyName)) {
                     if ($isNullable) {
                         $classInstance->{$propertyName} = null;
 
@@ -60,7 +59,7 @@ class Deserializer
                     throw new RocketException("property: '$propertyName' must exist in response");
                 }
 
-                if (!$propertyType) {
+                if (! $propertyType) {
                     throw new RocketException("property: '$propertyName' needs to be typed");
                 }
 
@@ -86,7 +85,7 @@ class Deserializer
     private static function getObjectOrArrayFromResponse(object|array $response): object|array
     {
         $properties = get_object_vars($response);
-        $objects = array_filter($properties, fn($prop) => is_object($prop) || is_array($prop));
+        $objects = array_filter($properties, fn ($prop) => is_object($prop) || is_array($prop));
 
         if (empty($objects)) {
             throw new RocketException("Didnt find any objects/arrays inside RocketChat response");
