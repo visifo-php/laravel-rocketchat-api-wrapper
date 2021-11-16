@@ -50,7 +50,7 @@ class Deserializer
                     $isNullable = true;
                 }
 
-                if (! property_exists($response, $propertyName)) {
+                if (!property_exists($response, $propertyName)) {
                     if ($isNullable) {
                         $classInstance->{$propertyName} = null;
 
@@ -60,7 +60,7 @@ class Deserializer
                     throw new RocketException("property: '$propertyName' must exist in response");
                 }
 
-                if (! $propertyType) {
+                if (!$propertyType) {
                     throw new RocketException("property: '$propertyName' needs to be typed");
                 }
 
@@ -86,7 +86,7 @@ class Deserializer
     private static function getObjectOrArrayFromResponse(object|array $response): object|array
     {
         $properties = get_object_vars($response);
-        $objects = array_filter($properties, fn ($prop) => is_object($prop) || is_array($prop));
+        $objects = array_filter($properties, fn($prop) => is_object($prop) || is_array($prop));
 
         if (empty($objects)) {
             throw new RocketException("Didnt find any objects/arrays inside RocketChat response");
@@ -125,16 +125,11 @@ class Deserializer
         $propertyType = $property->getType();
         $propertyName = $property->getName();
 
-        if ($propertyType instanceof ReflectionNamedType) {
-            $propertyType = $propertyType->getName();
-            $subClass = new $propertyType();
-            $classInstance->{$propertyName} = $subClass;
+        $propertyType = $propertyType->getName();
+        $subClass = new $propertyType();
+        $classInstance->{$propertyName} = $subClass;
 
-            return $subClass;
-        }
-        // See: https://github.com/phpstan/phpstan/issues/3937
-        // https://phpstan.org/r/afe6be72-823b-42b6-9241-43f578bdfc2f
-        throw new RocketException('Wrong ReflectionType!');
+        return $subClass;
     }
 
     /**
