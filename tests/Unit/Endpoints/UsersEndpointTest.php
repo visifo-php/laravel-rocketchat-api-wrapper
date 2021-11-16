@@ -29,7 +29,7 @@ class UsersEndpointTest extends TestCase
     {
         Http::fake(fn () => Http::response(ExampleResponseHelper::getUsersCreate()));
 
-        $userCreate = new UserCreate('email','username', 'name', 'password');
+        $userCreate = new UserCreate('email', 'username', 'name', 'password');
         $result = $this->testSystem->create($userCreate);
 
         $this->assertInstanceOf(User::class, $result);

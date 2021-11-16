@@ -15,7 +15,6 @@ class UserCreate
     public bool $sendWelcomeEmail;
     public bool $verified;
 
-
     public function __construct(string $email, string $username, string $name, string $password)
     {
         $this->email = $email;
@@ -33,36 +32,42 @@ class UserCreate
     public function setActive(bool $active): static
     {
         $this->active = $active;
+
         return $this;
     }
 
     public function setRoles(array $roles): static
     {
         $this->roles = $roles;
+
         return $this;
     }
 
     public function setJoinDefaultChannels(bool $joinDefaultChannels): static
     {
         $this->joinDefaultChannels = $joinDefaultChannels;
+
         return $this;
     }
 
     public function setRequirePasswordChange(bool $requirePasswordChange): static
     {
         $this->requirePasswordChange = $requirePasswordChange;
+
         return $this;
     }
 
     public function setSendWelcomeEmail(bool $sendWelcomeEmail): static
     {
         $this->sendWelcomeEmail = $sendWelcomeEmail;
+
         return $this;
     }
 
     public function setVerified(bool $verified): static
     {
         $this->verified = $verified;
+
         return $this;
     }
 }
