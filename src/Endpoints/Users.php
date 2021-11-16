@@ -6,6 +6,7 @@ namespace visifo\Rocket\Endpoints;
 
 use visifo\Rocket\Deserializer;
 use visifo\Rocket\Objects\Users\User;
+use visifo\Rocket\Objects\Users\UserCreate;
 use visifo\Rocket\Rocket;
 use visifo\Rocket\RocketException;
 
@@ -21,10 +22,9 @@ class Users extends Endpoint
     /**
      * @throws RocketException
      */
-    public function create(string $name, bool $readOnly = false, array $members = []): User
+    public function create(UserCreate $userCreate): User
     {
-        $data = get_defined_vars();
-        $response = $this->rocket->post("users.create", $data);
+        $response = $this->rocket->post("users.create", (array)$userCreate);
 
         return Deserializer::deserialize($response, User::class);
     }
@@ -39,7 +39,7 @@ class Users extends Endpoint
         } elseif ($username) {
             $data['username'] = $username;
         } else {
-            throw new RocketException("userId or username must be set to get Users Info");
+            throw new RocketException('userId or username must be set to get Users Info');
         }
 
         $data['confirmRelinquish'] = $confirmRelinquish;

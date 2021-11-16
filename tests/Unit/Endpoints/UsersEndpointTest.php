@@ -5,6 +5,7 @@ namespace visifo\Rocket\Tests\Unit\Endpoints;
 use Illuminate\Support\Facades\Http;
 use visifo\Rocket\Endpoints\Users;
 use visifo\Rocket\Objects\Users\User;
+use visifo\Rocket\Objects\Users\UserCreate;
 use function visifo\Rocket\rocketChat;
 use visifo\Rocket\RocketException;
 use visifo\Rocket\Tests\ExampleResponseHelper;
@@ -28,7 +29,8 @@ class UsersEndpointTest extends TestCase
     {
         Http::fake(fn () => Http::response(ExampleResponseHelper::getUsersCreate()));
 
-        $result = $this->testSystem->create('fake_channel_name');
+        $userCreate = new UserCreate('email','username', 'name', 'password');
+        $result = $this->testSystem->create($userCreate);
 
         $this->assertInstanceOf(User::class, $result);
         $this->assertEquals('fake_user_id', $result->id);
