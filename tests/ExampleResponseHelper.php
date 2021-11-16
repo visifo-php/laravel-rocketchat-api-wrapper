@@ -110,6 +110,14 @@ class ExampleResponseHelper
         return self::getJson(__DIR__ . '/Responses/Users/Create.json');
     }
 
+    /**
+     * @throws RocketException
+     */
+    public static function getChannelsList(): array
+    {
+        return self::getJson(__DIR__ . '/Responses/Channels/List.json');
+    }
+
     public static function getUsersCreateAsObject(): object
     {
         $json = file_get_contents(__DIR__ . '/Responses/Users/Create.json');
@@ -132,7 +140,7 @@ class ExampleResponseHelper
     {
         $json = file_get_contents($path);
 
-        if (! $json) {
+        if (!$json) {
             throw new RocketException('no valid json found');
         }
 
