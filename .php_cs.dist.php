@@ -36,6 +36,8 @@ return (new PhpCsFixer\Config())
             'keep_multiple_spaces_after_comma' => true,
         ],
         'single_trait_insert_per_statement' => true,
-        'closure_function_spacing' => 'none'
+        'function_declaration' => [
+            'closure_function_spacing' => 'none'
+        ],
     ])
     ->setFinder($finder);
