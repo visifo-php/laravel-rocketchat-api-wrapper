@@ -30,17 +30,18 @@ You can publish the config file with:
 php artisan vendor:publish --provider="visifo\Rocket\RocketServiceProvider" --tag="laravel-rocketchat-api-wrapper-config"
 ```
 
-You have to specify your RocketChat Url and either the UserId and AuthToken or UserName and Password to authenticate
-with the RocketChat API in your Laravel .env
+You have to specify your RocketChat Url and the UserId and AuthToken to authenticate with the RocketChat API in your
+Laravel .env.
+
+You only have to specify the Password if you use the users.update Endpoint, which requires 2FA
 
 ```dotenv
 ROCKET_URL=your-rocketchat.com
 
 ROCKET_USER_ID=RLhxwWHn9RjiWjtdG
 ROCKET_AUTH_TOKEN=Z9__Y1_Es6OB2kMf4dBD3I6qygRT3s-Lla67pf8AU1p
-#or
-ROCKET_USER_NAME=myRocketUser
-Rocket_USER_PASSWORD=myPassword
+# for users.update you need to set the Password
+ROCKET_USER_PASSWORD=myPassword
 ```
 
 ## Usage
@@ -64,8 +65,8 @@ $channel = $channelsEndpoint->create("myChannel");
 $channelsEndpoint->setTopic($channel->id, "myTopic")
 ```
 
-All functions who return the Response from RocketChat will deserialize it into its own simplified Object. Also, some properties gets renamed to something more simple or meaningful,
-for example "t" to "type" or "_id" to "id"
+All functions who return the Response from RocketChat will deserialize it into its own simplified Object. Also, some
+properties gets renamed to something more simple or meaningful, for example "t" to "type" or "_id" to "id"
 
 Alternatively you can make Requests directly via the RocketChat Client which will result in the raw stdClass you get
 from the RocketChat API
