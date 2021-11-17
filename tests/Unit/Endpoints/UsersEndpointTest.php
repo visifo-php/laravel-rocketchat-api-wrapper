@@ -46,7 +46,7 @@ class UsersEndpointTest extends TestCase
      */
     public function delete_when_validInput_then_succeed()
     {
-        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
         $this->testSystem->delete('fake_user_id');
         $this->assertTrue(true);
     }
