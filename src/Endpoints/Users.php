@@ -39,7 +39,7 @@ class Users extends Endpoint
         } elseif ($username) {
             $data['username'] = $username;
         } else {
-            throw new RocketException('userId or username must be set to get Users Info');
+            throw new RocketException('userId or username must be set for Users.delete');
         }
 
         $data['confirmRelinquish'] = $confirmRelinquish;
@@ -52,6 +52,12 @@ class Users extends Endpoint
      */
     public function register(string $username, string $email, string $pass, string $name): void
     {
+        $this
+            ->checkEmptyString($username)
+            ->checkEmptyString($email)
+            ->checkEmptyString($pass)
+            ->checkEmptyString($name);
+
         $data = get_defined_vars();
         $this->rocket->post("users.register", $data);
     }
@@ -79,6 +85,8 @@ class Users extends Endpoint
      */
     public function setAvatar(string $avatarUrl, string $userId = '', string $username = ''): void
     {
+        $this->checkEmptyString($avatarUrl);
+
         if ($userId) {
             $data['userId'] = $userId;
         } elseif ($username) {
@@ -107,6 +115,8 @@ class Users extends Endpoint
      */
     public function update(string $userId, array $data): void
     {
+        $this->checkEmptyString($userId);
+
         if (empty($data)) {
             throw new RocketException('data cant be empty');
         }

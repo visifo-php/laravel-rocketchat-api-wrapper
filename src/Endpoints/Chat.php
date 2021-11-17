@@ -21,13 +21,18 @@ class Chat extends Endpoint
     /**
      * @throws RocketException
      */
-    public function postMessage(string $roomId, string $text, ?string $channel = null): Message
+    public function postMessage(string $text, string $roomId = '', string $channel = ''): Message
     {
-        if (empty($channel)) {
-            unset($channel);
+        $this->checkEmptyString($text);
+        if ($roomId) {
+            $data['roomId'] = $roomId;
+        } elseif ($channel) {
+            $data['channel'] = $channel;
+        } else {
+            throw new RocketException("roomId or channel must be set for postMessage");
         }
 
-        $data = get_defined_vars();
+        $data['text'] = $text;
         $response = $this->rocket->post("chat.postMessage", $data);
 
         return Deserializer::deserialize($response, Message::class);
@@ -38,6 +43,10 @@ class Chat extends Endpoint
      */
     public function delete(string $roomId, string $msgId, bool $asUser = false): void
     {
+        $this
+            ->checkEmptyString($roomId)
+            ->checkEmptyString($msgId);
+
         $data = get_defined_vars();
         $this->rocket->post("chat.delete", $data);
     }
@@ -47,6 +56,7 @@ class Chat extends Endpoint
      */
     public function followMessage(string $mid): void
     {
+        $this->checkEmptyString($mid);
         $data = get_defined_vars();
         $this->rocket->post("chat.followMessage", $data);
     }
@@ -56,6 +66,7 @@ class Chat extends Endpoint
      */
     public function getMessage(string $msgId): Message
     {
+        $this->checkEmptyString($msgId);
         $query = get_defined_vars();
         $response = $this->rocket->get("chat.getMessage", $query);
 
@@ -67,6 +78,7 @@ class Chat extends Endpoint
      */
     public function pinMessage(string $messageId): void
     {
+        $this->checkEmptyString($messageId);
         $data = get_defined_vars();
         $this->rocket->post("chat.pinMessage", $data);
     }
@@ -76,6 +88,10 @@ class Chat extends Endpoint
      */
     public function react(string $messageId, string $emoji): void
     {
+        $this
+            ->checkEmptyString($messageId)
+            ->checkEmptyString($emoji);
+
         $data = get_defined_vars();
         $this->rocket->post("chat.react", $data);
     }
@@ -85,6 +101,7 @@ class Chat extends Endpoint
      */
     public function starMessage(string $messageId): void
     {
+        $this->checkEmptyString($messageId);
         $data = get_defined_vars();
         $this->rocket->post("chat.starMessage", $data);
     }
@@ -94,6 +111,7 @@ class Chat extends Endpoint
      */
     public function unfollowMessage(string $mid): void
     {
+        $this->checkEmptyString($mid);
         $data = get_defined_vars();
         $this->rocket->post("chat.unfollowMessage", $data);
     }
@@ -103,6 +121,7 @@ class Chat extends Endpoint
      */
     public function unPinMessage(string $messageId): void
     {
+        $this->checkEmptyString($messageId);
         $data = get_defined_vars();
         $this->rocket->post("chat.unPinMessage", $data);
     }

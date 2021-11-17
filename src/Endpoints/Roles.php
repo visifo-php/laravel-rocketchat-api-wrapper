@@ -21,10 +21,16 @@ class Roles extends Endpoint
     /**
      * @throws RocketException
      */
-    public function create(string $name, string $scope, ?string $description = null): Role
+    public function create(string $name, string $scope, string $description = ''): Role
     {
-        if (is_null($description)) {
+        $this
+            ->checkEmptyString($name)
+            ->checkEmptyString($scope);
+
+        if (empty($description)) {
             unset($description);
+        } else {
+            $this->checkEmptyString($description);
         }
 
         $data = get_defined_vars();
