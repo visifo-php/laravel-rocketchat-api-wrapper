@@ -148,7 +148,7 @@ class ExampleResponseHelper
     {
         $json = file_get_contents($path);
 
-        if (! $json) {
+        if (!$json) {
             throw new RocketException('no valid json found');
         }
 
