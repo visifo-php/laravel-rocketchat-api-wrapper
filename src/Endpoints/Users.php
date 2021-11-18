@@ -22,9 +22,20 @@ class Users extends Endpoint
     /**
      * @throws RocketException
      */
-    public function create(UserCreate $userCreate): User
+    public function create(string $email, string $username, string $name, string $password, bool $joinDefaultChannels = true, bool $verified = false, array $roles = ['user']): User
     {
-        $response = $this->rocket->post("users.create", (array)$userCreate);
+        $this->checkEmptyString($email);
+        $this->checkEmptyString($username);
+        $this->checkEmptyString($name);
+        $this->checkEmptyString($password);
+
+        if (empty($roles)) {
+            throw new RocketException('Roles array cant be empty');
+        }
+
+        $data = get_defined_vars();
+
+        $response = $this->rocket->post("users.create", $data);
 
         return Deserializer::deserialize($response, User::class);
     }
