@@ -6,7 +6,6 @@ namespace visifo\Rocket\Endpoints;
 
 use visifo\Rocket\Deserializer;
 use visifo\Rocket\Objects\Users\User;
-use visifo\Rocket\Objects\Users\UserCreate;
 use visifo\Rocket\Rocket;
 use visifo\Rocket\RocketException;
 
