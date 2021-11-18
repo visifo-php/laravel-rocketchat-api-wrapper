@@ -21,12 +21,13 @@ class Roles extends Endpoint
     /**
      * @throws RocketException
      */
-    public function create(string $name, string $scope, ?string $description = null): Role
+    public function create(string $name, string $scope, string $description = ''): Role
     {
-        $this->checkEmptyString($name);
-        $this->checkEmptyString($scope);
+        $this
+            ->checkEmptyString($name)
+            ->checkEmptyString($scope);
 
-        if (is_null($description)) {
+        if (empty($description)) {
             unset($description);
         } else {
             $this->checkEmptyString($description);

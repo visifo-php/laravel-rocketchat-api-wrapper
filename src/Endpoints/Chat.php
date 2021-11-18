@@ -21,14 +21,25 @@ class Chat extends Endpoint
     /**
      * @throws RocketException
      */
-    public function postMessage(string $roomId, string $text, ?string $channel = null): Message
+    public function postChannelMessage(string $roomId, string $text): Message
     {
-        if (empty($channel)) {
-            unset($channel);
-        }
-
         $this->checkEmptyString($roomId);
         $this->checkEmptyString($text);
+
+        $data = get_defined_vars();
+        $response = $this->rocket->post("chat.postMessage", $data);
+
+        return Deserializer::deserialize($response, Message::class);
+    }
+
+    /**
+     * @throws RocketException
+     */
+    public function postRoomMessage(string $channel, string $text): Message
+    {
+        $this->checkEmptyString($channel);
+        $this->checkEmptyString($text);
+
         $data = get_defined_vars();
         $response = $this->rocket->post("chat.postMessage", $data);
 
@@ -40,8 +51,10 @@ class Chat extends Endpoint
      */
     public function delete(string $roomId, string $msgId, bool $asUser = false): void
     {
-        $this->checkEmptyString($roomId);
-        $this->checkEmptyString($msgId);
+        $this
+            ->checkEmptyString($roomId)
+            ->checkEmptyString($msgId);
+
         $data = get_defined_vars();
         $this->rocket->post("chat.delete", $data);
     }
@@ -83,8 +96,10 @@ class Chat extends Endpoint
      */
     public function react(string $messageId, string $emoji): void
     {
-        $this->checkEmptyString($messageId);
-        $this->checkEmptyString($emoji);
+        $this
+            ->checkEmptyString($messageId)
+            ->checkEmptyString($emoji);
+
         $data = get_defined_vars();
         $this->rocket->post("chat.react", $data);
     }

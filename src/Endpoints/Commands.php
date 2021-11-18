@@ -43,13 +43,16 @@ class Commands extends Endpoint
     /**
      * @throws RocketException
      */
-    public function run(string $command, string $roomId, ?string $params = null): void
+    public function run(string $command, string $roomId, string $params = ''): void
     {
-        $this->checkEmptyString($command);
-        $this->checkEmptyString($roomId);
+        $this
+            ->checkEmptyString($command)
+            ->checkEmptyString($roomId);
 
         if (empty($params)) {
             unset($params);
+        } else {
+            $this->checkEmptyString($params);
         }
 
         $data = get_defined_vars();

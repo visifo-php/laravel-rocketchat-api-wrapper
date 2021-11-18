@@ -25,7 +25,7 @@ class Channels extends Endpoint
     {
         $this->checkEmptyString($name);
         $data = get_defined_vars();
-        $response = $this->rocket->post("channels.create", $data);
+        $response = $this->rocket->post('channels.create', $data);
 
         return Deserializer::deserialize($response, Channel::class);
     }
@@ -33,19 +33,17 @@ class Channels extends Endpoint
     /**
      * @throws RocketException
      */
-    public function info(string $roomId = "", string $roomName = ""): Channel
+    public function info(string $roomId = '', string $roomName = ''): Channel
     {
         if ($roomId) {
-            $this->checkEmptyString($roomId);
             $query['roomId'] = $roomId;
         } elseif ($roomName) {
-            $this->checkEmptyString($roomName);
             $query['roomName'] = $roomName;
         } else {
-            throw new RocketException("roomId or roomName must be set to get Channel Info");
+            throw new RocketException('roomId or roomName must be set to get Channel Info');
         }
 
-        $response = $this->rocket->get("channels.info", $query);
+        $response = $this->rocket->get('channels.info', $query);
 
         return Deserializer::deserialize($response, Channel::class);
     }
@@ -53,19 +51,17 @@ class Channels extends Endpoint
     /**
      * @throws RocketException
      */
-    public function delete(string $roomId = "", string $roomName = ""): void
+    public function delete(string $roomId = '', string $roomName = ''): void
     {
         if ($roomId) {
-            $this->checkEmptyString($roomId);
             $data['roomId'] = $roomId;
         } elseif ($roomName) {
-            $this->checkEmptyString($roomName);
             $data['roomName'] = $roomName;
         } else {
-            throw new RocketException("roomId or roomName must be set to delete a Channel");
+            throw new RocketException('roomId or roomName must be set to delete a Channel');
         }
 
-        $this->rocket->post("channels.delete", $data);
+        $this->rocket->post('channels.delete', $data);
     }
 
     /**
@@ -73,10 +69,12 @@ class Channels extends Endpoint
      */
     public function setTopic(string $roomId, string $topic): void
     {
-        $this->checkEmptyString($roomId);
-        $this->checkEmptyString($topic);
+        $this
+            ->checkEmptyString($roomId)
+            ->checkEmptyString($topic);
+
         $data = get_defined_vars();
-        $this->rocket->post("channels.setTopic", $data);
+        $this->rocket->post('channels.setTopic', $data);
     }
 
     /**
@@ -86,7 +84,7 @@ class Channels extends Endpoint
     {
         $this->checkEmptyString($roomId);
         $data = get_defined_vars();
-        $this->rocket->post("channels.addAll", $data);
+        $this->rocket->post('channels.addAll', $data);
     }
 
     /**
@@ -94,10 +92,12 @@ class Channels extends Endpoint
      */
     public function addLeader(string $roomId, string $userId): void
     {
-        $this->checkEmptyString($roomId);
-        $this->checkEmptyString($userId);
+        $this
+            ->checkEmptyString($roomId)
+            ->checkEmptyString($userId);
+
         $data = get_defined_vars();
-        $this->rocket->post("channels.addLeader", $data);
+        $this->rocket->post('channels.addLeader', $data);
     }
 
     /**
@@ -105,10 +105,12 @@ class Channels extends Endpoint
      */
     public function addModerator(string $roomId, string $userId): void
     {
-        $this->checkEmptyString($roomId);
-        $this->checkEmptyString($userId);
+        $this
+            ->checkEmptyString($roomId)
+            ->checkEmptyString($userId);
+
         $data = get_defined_vars();
-        $this->rocket->post("channels.addModerator", $data);
+        $this->rocket->post('channels.addModerator', $data);
     }
 
     /**
@@ -116,10 +118,12 @@ class Channels extends Endpoint
      */
     public function addOwner(string $roomId, string $userId): void
     {
-        $this->checkEmptyString($roomId);
-        $this->checkEmptyString($userId);
+        $this
+            ->checkEmptyString($roomId)
+            ->checkEmptyString($userId);
+
         $data = get_defined_vars();
-        $this->rocket->post("channels.addOwner", $data);
+        $this->rocket->post('channels.addOwner', $data);
     }
 
     /**
@@ -129,7 +133,7 @@ class Channels extends Endpoint
     {
         $this->checkEmptyString($roomId);
         $data = get_defined_vars();
-        $this->rocket->post("channels.archive", $data);
+        $this->rocket->post('channels.archive', $data);
     }
 
     /**
@@ -139,7 +143,7 @@ class Channels extends Endpoint
     {
         $this->checkEmptyString($roomId);
         $data = get_defined_vars();
-        $this->rocket->post("channels.close", $data);
+        $this->rocket->post('channels.close', $data);
     }
 
     /**
@@ -147,18 +151,12 @@ class Channels extends Endpoint
      */
     public function invite(string $roomId, string $userId): void
     {
-        if ($roomId) {
-            $this->checkEmptyString($roomId);
-            $data['roomId'] = $roomId;
-        } elseif ($userId) {
-            $this->checkEmptyString($userId);
-            $data['userId'] = $userId;
-        } else {
-            throw new RocketException("roomId or userId must be set to invite a User to a Channel");
-        }
+        $this
+            ->checkEmptyString($roomId)
+            ->checkEmptyString($userId);
 
         $data = get_defined_vars();
-        $this->rocket->post("channels.invite", $data);
+        $this->rocket->post('channels.invite', $data);
     }
 
     /**
@@ -168,7 +166,7 @@ class Channels extends Endpoint
     {
         $this->checkEmptyString($roomId);
         $data = get_defined_vars();
-        $this->rocket->post("channels.join", $data);
+        $this->rocket->post('channels.join', $data);
     }
 
     /**
@@ -176,10 +174,12 @@ class Channels extends Endpoint
      */
     public function kick(string $roomId, string $userId): void
     {
-        $this->checkEmptyString($roomId);
-        $this->checkEmptyString($userId);
+        $this
+            ->checkEmptyString($roomId)
+            ->checkEmptyString($userId);
+
         $data = get_defined_vars();
-        $this->rocket->post("channels.kick", $data);
+        $this->rocket->post('channels.kick', $data);
     }
 
     /**
@@ -189,7 +189,7 @@ class Channels extends Endpoint
     {
         $this->checkEmptyString($roomId);
         $data = get_defined_vars();
-        $this->rocket->post("channels.leave", $data);
+        $this->rocket->post('channels.leave', $data);
     }
 
     /**
@@ -199,7 +199,7 @@ class Channels extends Endpoint
     {
         $this->checkEmptyString($roomId);
         $data = get_defined_vars();
-        $this->rocket->post("channels.open", $data);
+        $this->rocket->post('channels.open', $data);
     }
 
     /**
@@ -207,10 +207,12 @@ class Channels extends Endpoint
      */
     public function removeLeader(string $roomId, string $userId): void
     {
-        $this->checkEmptyString($roomId);
-        $this->checkEmptyString($userId);
+        $this
+            ->checkEmptyString($roomId)
+            ->checkEmptyString($userId);
+
         $data = get_defined_vars();
-        $this->rocket->post("channels.removeLeader", $data);
+        $this->rocket->post('channels.removeLeader', $data);
     }
 
     /**
@@ -218,10 +220,12 @@ class Channels extends Endpoint
      */
     public function removeModerator(string $roomId, string $userId): void
     {
-        $this->checkEmptyString($roomId);
-        $this->checkEmptyString($userId);
+        $this
+            ->checkEmptyString($roomId)
+            ->checkEmptyString($userId);
+
         $data = get_defined_vars();
-        $this->rocket->post("channels.removeModerator", $data);
+        $this->rocket->post('channels.removeModerator', $data);
     }
 
     /**
@@ -229,10 +233,12 @@ class Channels extends Endpoint
      */
     public function removeOwner(string $roomId, string $userId): void
     {
-        $this->checkEmptyString($roomId);
-        $this->checkEmptyString($userId);
+        $this
+            ->checkEmptyString($roomId)
+            ->checkEmptyString($userId);
+
         $data = get_defined_vars();
-        $this->rocket->post("channels.removeOwner", $data);
+        $this->rocket->post('channels.removeOwner', $data);
     }
 
     /**
@@ -240,10 +246,12 @@ class Channels extends Endpoint
      */
     public function rename(string $roomId, string $name): void
     {
-        $this->checkEmptyString($roomId);
-        $this->checkEmptyString($name);
+        $this
+            ->checkEmptyString($roomId)
+            ->checkEmptyString($name);
+
         $data = get_defined_vars();
-        $this->rocket->post("channels.rename", $data);
+        $this->rocket->post('channels.rename', $data);
     }
 
     /**
@@ -251,10 +259,12 @@ class Channels extends Endpoint
      */
     public function setAnnouncement(string $roomId, string $announcement): void
     {
-        $this->checkEmptyString($roomId);
-        $this->checkEmptyString($announcement);
+        $this
+            ->checkEmptyString($roomId)
+            ->checkEmptyString($announcement);
+
         $data = get_defined_vars();
-        $this->rocket->post("channels.setAnnouncement", $data);
+        $this->rocket->post('channels.setAnnouncement', $data);
     }
 
     /**
@@ -262,10 +272,12 @@ class Channels extends Endpoint
      */
     public function setDefault(string $roomId, string $default): void
     {
-        $this->checkEmptyString($roomId);
-        $this->checkEmptyString($default);
+        $this
+            ->checkEmptyString($roomId)
+            ->checkEmptyString($default);
+
         $data = get_defined_vars();
-        $this->rocket->post("channels.setDefault", $data);
+        $this->rocket->post('channels.setDefault', $data);
     }
 
     /**
@@ -276,7 +288,7 @@ class Channels extends Endpoint
         $this->checkEmptyString($roomId);
         $this->checkEmptyString($description);
         $data = get_defined_vars();
-        $this->rocket->post("channels.setDescription", $data);
+        $this->rocket->post('channels.setDescription', $data);
     }
 
     /**
@@ -284,10 +296,12 @@ class Channels extends Endpoint
      */
     public function setJoinCode(string $roomId, string $joinCode): void
     {
-        $this->checkEmptyString($roomId);
-        $this->checkEmptyString($joinCode);
+        $this
+            ->checkEmptyString($roomId)
+            ->checkEmptyString($joinCode);
+
         $data = get_defined_vars();
-        $this->rocket->post("channels.setJoinCode", $data);
+        $this->rocket->post('channels.setJoinCode', $data);
     }
 
     /**
@@ -295,10 +309,12 @@ class Channels extends Endpoint
      */
     public function setPurpose(string $roomId, string $purpose): void
     {
-        $this->checkEmptyString($roomId);
-        $this->checkEmptyString($purpose);
+        $this
+            ->checkEmptyString($roomId)
+            ->checkEmptyString($purpose);
+
         $data = get_defined_vars();
-        $this->rocket->post("channels.setPurpose", $data);
+        $this->rocket->post('channels.setPurpose', $data);
     }
 
     /**
@@ -315,23 +331,21 @@ class Channels extends Endpoint
      * @throws RocketException
      * type is either "c" for channel or "p" for private
      */
-    public function setType(string $type, string $roomId = "", string $roomName = ""): void
+    public function setType(string $type, string $roomId = '', string $roomName = ''): void
     {
         $this->checkEmptyString($type);
 
         if ($roomId) {
-            $this->checkEmptyString($roomId);
             $data['roomId'] = $roomId;
         } elseif ($roomName) {
-            $this->checkEmptyString($roomName);
             $data['roomName'] = $roomName;
         } else {
-            throw new RocketException("type + roomId or roomName must be set to delete a Channel");
+            throw new RocketException('roomId or roomName must be set for setType');
         }
 
         $data['type'] = $type;
 
-        $this->rocket->post("channels.setType", $data);
+        $this->rocket->post('channels.setType', $data);
     }
 
     /**
@@ -341,6 +355,16 @@ class Channels extends Endpoint
     {
         $this->checkEmptyString($roomId);
         $data = get_defined_vars();
-        $this->rocket->post("channels.unarchive", $data);
+        $this->rocket->post('channels.unarchive', $data);
+    }
+
+    /**
+     * @throws RocketException
+     */
+    public function list(): \visifo\Rocket\Objects\Channels\Channels
+    {
+        $response = $this->rocket->get('channels.list');
+
+        return Deserializer::deserialize($response, \visifo\Rocket\Objects\Channels\Channels::class);
     }
 }

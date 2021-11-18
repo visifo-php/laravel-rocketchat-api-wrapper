@@ -11,12 +11,12 @@ abstract class Endpoint
     /**
      * @throws RocketException
      */
-    protected function checkEmptyString(string $s): bool
+    protected function checkEmptyString(string $s): static
     {
         if (empty($s)) {
             throw new RocketException("String in function argument cant be empty");
         }
 
-        return false;
+        return $this;
     }
 }

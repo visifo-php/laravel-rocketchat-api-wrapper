@@ -1,0 +1,13 @@
+{
+    "user": {
+        "_id": "fake_user_id",
+        "type": "user",
+        "status": "offline",
+        "active": true,
+        "name": "Example User",
+        "utcOffset": 0,
+        "username": "fake_user",
+        "avatarETag": "thwftThP3Band942S"
+    },
+    "success": true
+}

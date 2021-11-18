@@ -21,10 +21,19 @@ class Users extends Endpoint
     /**
      * @throws RocketException
      */
-    public function create(string $name, bool $readOnly = false, array $members = []): User
+    public function create(string $email, string $username, string $name, string $password, bool $joinDefaultChannels = true, bool $verified = false, array $roles = ['user']): User
     {
+        $this->checkEmptyString($email);
+        $this->checkEmptyString($username);
         $this->checkEmptyString($name);
+        $this->checkEmptyString($password);
+
+        if (empty($roles)) {
+            throw new RocketException('Roles array cant be empty');
+        }
+
         $data = get_defined_vars();
+
         $response = $this->rocket->post("users.create", $data);
 
         return Deserializer::deserialize($response, User::class);
@@ -33,10 +42,18 @@ class Users extends Endpoint
     /**
      * @throws RocketException
      */
-    public function delete(string $userId): void
+    public function delete(string $userId = '', string $username = '', bool $confirmRelinquish = false): void
     {
-        $this->checkEmptyString($userId);
-        $data = get_defined_vars();
+        if ($userId) {
+            $data['userId'] = $userId;
+        } elseif ($username) {
+            $data['username'] = $username;
+        } else {
+            throw new RocketException('userId or username must be set for Users.delete');
+        }
+
+        $data['confirmRelinquish'] = $confirmRelinquish;
+
         $this->rocket->post("users.delete", $data);
     }
 
@@ -45,13 +62,52 @@ class Users extends Endpoint
      */
     public function register(string $username, string $email, string $pass, string $name): void
     {
-        $this->checkEmptyString($username);
-        $this->checkEmptyString($email);
-        $this->checkEmptyString($pass);
-        $this->checkEmptyString($name);
+        $this
+            ->checkEmptyString($username)
+            ->checkEmptyString($email)
+            ->checkEmptyString($pass)
+            ->checkEmptyString($name);
 
         $data = get_defined_vars();
         $this->rocket->post("users.register", $data);
+    }
+
+    /**
+     * @throws RocketException
+     */
+    public function info(string $userId = '', string $username = ''): User
+    {
+        if ($userId) {
+            $query['userId'] = $userId;
+        } elseif ($username) {
+            $query['username'] = $username;
+        } else {
+            throw new RocketException("userId or username must be set to get Users Info");
+        }
+
+        $response = $this->rocket->get("users.info", $query);
+
+        return Deserializer::deserialize($response, User::class);
+    }
+
+    /**
+     * @throws RocketException
+     */
+    public function setAvatar(string $avatarUrl, string $userId = '', string $username = ''): void
+    {
+        $this->checkEmptyString($avatarUrl);
+
+        if ($userId) {
+            $data['userId'] = $userId;
+        } elseif ($username) {
+            $data['username'] = $username;
+        } else {
+            throw new RocketException("userId or username must be set to get Users Info");
+        }
+
+        $data['avatarUrl'] = $avatarUrl;
+
+        $this->rocket->get("users.setAvatar", $data);
     }
 
     /**

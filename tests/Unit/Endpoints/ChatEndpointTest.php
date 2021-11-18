@@ -6,10 +6,10 @@ use Illuminate\Support\Facades\Http;
 use visifo\Rocket\Endpoints\Chat;
 use visifo\Rocket\Objects\Chat\Message;
 use visifo\Rocket\Objects\Common\User;
-use function visifo\Rocket\rocketChat;
 use visifo\Rocket\RocketException;
 use visifo\Rocket\Tests\ExampleResponseHelper;
 use visifo\Rocket\Tests\TestCase;
+use function visifo\Rocket\rocketChat;
 
 class ChatEndpointTest extends TestCase
 {
@@ -25,22 +25,28 @@ class ChatEndpointTest extends TestCase
      * @test
      * @throws RocketException
      */
-    public function postMessage_when_emptyString_then_throwException()
+    public function postChannelMessage_when_validInput_then_succeed()
     {
-        $this->expectException(RocketException::class);
-        $this->expectExceptionMessage("String in function argument cant be empty");
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getChatPostMessage()));
+        $result = $this->testSystem->postChannelMessage('fake_room_id', 'test_message');
 
-        $this->testSystem->postMessage('', '', '');
+        $this->assertInstanceOf(Message::class, $result);
+        $this->assertEquals('fakeid', $result->id);
+        $this->assertEquals('test_message', $result->message);
+
+        $this->assertInstanceOf(User::class, $result->user);
+        $this->assertEquals("fakeuser", $result->user->id);
+        $this->assertEquals("fakeuser", $result->user->username);
     }
 
     /**
      * @test
      * @throws RocketException
      */
-    public function postMessage_when_validInput_then_succeed()
+    public function postRoomMessage_when_validInput_then_succeed()
     {
-        Http::fake(fn () => Http::response(ExampleResponseHelper::getChatPostMessage()));
-        $result = $this->testSystem->postMessage('fake_room_id', 'test_message');
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getChatPostMessage()));
+        $result = $this->testSystem->postRoomMessage('fake_room_id', 'test_message');
 
         $this->assertInstanceOf(Message::class, $result);
         $this->assertEquals('fakeid', $result->id);
@@ -57,10 +63,9 @@ class ChatEndpointTest extends TestCase
      */
     public function delete_when_validInput_then_succeed()
     {
-        $this->expectNotToPerformAssertions();
-
-        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
         $this->testSystem->delete('fake_room_id', 'fake_message_id');
+        $this->assertTrue(true);
     }
 
     /**
@@ -69,7 +74,7 @@ class ChatEndpointTest extends TestCase
      */
     public function getMessage_when_validInput_then_succeed()
     {
-        Http::fake(fn () => Http::response(ExampleResponseHelper::getChatGetMessage()));
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getChatGetMessage()));
         $result = $this->testSystem->getMessage('fake_room_id');
 
         $this->assertInstanceOf(Message::class, $result);
@@ -88,10 +93,9 @@ class ChatEndpointTest extends TestCase
      */
     public function pinMessage_when_validInput_then_succeed()
     {
-        $this->expectNotToPerformAssertions();
-
-        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
         $this->testSystem->pinMessage('fake_message_id');
+        $this->assertTrue(true);
     }
 
     /**
@@ -100,10 +104,9 @@ class ChatEndpointTest extends TestCase
      */
     public function starMessage_when_validInput_then_succeed()
     {
-        $this->expectNotToPerformAssertions();
-
-        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
         $this->testSystem->starMessage('fake_message_id');
+        $this->assertTrue(true);
     }
 
     /**
@@ -112,10 +115,9 @@ class ChatEndpointTest extends TestCase
      */
     public function react_when_validInput_then_succeed()
     {
-        $this->expectNotToPerformAssertions();
-
-        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
         $this->testSystem->react('fake_message_id', 'smile');
+        $this->assertTrue(true);
     }
 
     /**
@@ -124,10 +126,9 @@ class ChatEndpointTest extends TestCase
      */
     public function unfollowMessage_when_validInput_then_succeed()
     {
-        $this->expectNotToPerformAssertions();
-
-        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
         $this->testSystem->unfollowMessage('fake_message_id');
+        $this->assertTrue(true);
     }
 
     /**
@@ -136,9 +137,8 @@ class ChatEndpointTest extends TestCase
      */
     public function unPinMessage_when_validInput_then_succeed()
     {
-        $this->expectNotToPerformAssertions();
-
-        Http::fake(fn () => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
         $this->testSystem->unPinMessage('fake_message_id');
+        $this->assertTrue(true);
     }
 }

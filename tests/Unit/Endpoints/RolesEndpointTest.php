@@ -5,10 +5,10 @@ namespace visifo\Rocket\Tests\Unit\Endpoints;
 use Illuminate\Support\Facades\Http;
 use visifo\Rocket\Endpoints\Roles;
 use visifo\Rocket\Objects\Roles\Role;
-use function visifo\Rocket\rocketChat;
 use visifo\Rocket\RocketException;
 use visifo\Rocket\Tests\ExampleResponseHelper;
 use visifo\Rocket\Tests\TestCase;
+use function visifo\Rocket\rocketChat;
 
 class RolesEndpointTest extends TestCase
 {
@@ -26,7 +26,7 @@ class RolesEndpointTest extends TestCase
      */
     public function create_when_validInput_then_succeed()
     {
-        Http::fake(fn () => Http::response(ExampleResponseHelper::getRolesCreate()));
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getRolesCreate()));
 
         $result = $this->testSystem->create('fake_role', 'Subscriptions');
 
@@ -46,7 +46,7 @@ class RolesEndpointTest extends TestCase
         $this->expectException(RocketException::class);
         $this->expectExceptionMessage('FakeError');
 
-        Http::fake(fn () => Http::response(ExampleResponseHelper::getUnsuccessfulWithException()));
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getUnsuccessfulWithException()));
 
         $this->testSystem->create('already_existing_role', 'Subscriptions');
     }
