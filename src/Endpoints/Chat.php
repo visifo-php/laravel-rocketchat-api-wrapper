@@ -21,18 +21,26 @@ class Chat extends Endpoint
     /**
      * @throws RocketException
      */
-    public function postMessage(string $text, string $roomId = '', string $channel = ''): Message
+    public function postChannelMessage(string $roomId, string $text): Message
     {
+        $this->checkEmptyString($roomId);
         $this->checkEmptyString($text);
-        if ($roomId) {
-            $data['roomId'] = $roomId;
-        } elseif ($channel) {
-            $data['channel'] = $channel;
-        } else {
-            throw new RocketException("roomId or channel must be set for postMessage");
-        }
 
-        $data['text'] = $text;
+        $data = get_defined_vars();
+        $response = $this->rocket->post("chat.postMessage", $data);
+
+        return Deserializer::deserialize($response, Message::class);
+    }
+
+    /**
+     * @throws RocketException
+     */
+    public function postRoomMessage(string $channel, string $text): Message
+    {
+        $this->checkEmptyString($channel);
+        $this->checkEmptyString($text);
+
+        $data = get_defined_vars();
         $response = $this->rocket->post("chat.postMessage", $data);
 
         return Deserializer::deserialize($response, Message::class);

@@ -25,10 +25,28 @@ class ChatEndpointTest extends TestCase
      * @test
      * @throws RocketException
      */
-    public function postMessage_when_validInput_then_succeed()
+    public function postChannelMessage_when_validInput_then_succeed()
     {
         Http::fake(fn() => Http::response(ExampleResponseHelper::getChatPostMessage()));
-        $result = $this->testSystem->postMessage('fake_room_id', 'test_message');
+        $result = $this->testSystem->postChannelMessage('fake_room_id', 'test_message');
+
+        $this->assertInstanceOf(Message::class, $result);
+        $this->assertEquals('fakeid', $result->id);
+        $this->assertEquals('test_message', $result->message);
+
+        $this->assertInstanceOf(User::class, $result->user);
+        $this->assertEquals("fakeuser", $result->user->id);
+        $this->assertEquals("fakeuser", $result->user->username);
+    }
+
+    /**
+     * @test
+     * @throws RocketException
+     */
+    public function postRoomMessage_when_validInput_then_succeed()
+    {
+        Http::fake(fn() => Http::response(ExampleResponseHelper::getChatPostMessage()));
+        $result = $this->testSystem->postRoomMessage('fake_room_id', 'test_message');
 
         $this->assertInstanceOf(Message::class, $result);
         $this->assertEquals('fakeid', $result->id);
