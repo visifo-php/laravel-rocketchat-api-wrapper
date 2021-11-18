@@ -7,7 +7,6 @@ use ReflectionClass;
 use ReflectionException;
 use visifo\Rocket\Endpoints\Users;
 use visifo\Rocket\Objects\Users\User;
-use visifo\Rocket\Objects\Users\UserCreate;
 use visifo\Rocket\RocketException;
 use visifo\Rocket\Tests\ExampleResponseHelper;
 use visifo\Rocket\Tests\TestCase;
@@ -31,8 +30,7 @@ class UsersEndpointTest extends TestCase
     {
         Http::fake(fn() => Http::response(ExampleResponseHelper::getUsersCreate()));
 
-        $userCreate = new UserCreate('email', 'username', 'name', 'password');
-        $result = $this->testSystem->create($userCreate);
+        $result = $this->testSystem->create('email', 'username', 'name', 'password');
 
         $this->assertInstanceOf(User::class, $result);
         $this->assertEquals('fake_user_id', $result->id);
