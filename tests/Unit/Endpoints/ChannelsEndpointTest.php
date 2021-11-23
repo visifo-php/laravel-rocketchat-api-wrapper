@@ -4,6 +4,7 @@ namespace visifo\Rocket\Tests\Unit\Endpoints;
 
 use Illuminate\Support\Facades\Http;
 use visifo\Rocket\Endpoints\Channels;
+use visifo\Rocket\Enums\ChannelType;
 use visifo\Rocket\Objects\Channels\Channel;
 use visifo\Rocket\Objects\Common\User;
 use visifo\Rocket\RocketException;
@@ -334,7 +335,7 @@ class ChannelsEndpointTest extends TestCase
     public function setType_when_everythingFine_then_succeed()
     {
         Http::fake(fn() => Http::response(ExampleResponseHelper::getSuccessWithoutObject()));
-        $this->testSystem->setType('fake_type', 'room_id');
+        $this->testSystem->setType(ChannelType::Channel(), 'room_id');
         $this->assertTrue(true);
     }
 
