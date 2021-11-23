@@ -20,10 +20,12 @@ class Chat extends Endpoint
 
     /**
      * @throws RocketException
+     * prefix # in channel refers to channel
+     * prefix @ in channel refers to username
      */
-    public function postChannelMessage(string $roomId, string $text): Message
+    public function postChannelMessage(string $channel, string $text): Message
     {
-        $this->checkEmptyString($roomId);
+        $this->checkEmptyString($channel);
         $this->checkEmptyString($text);
 
         $data = get_defined_vars();
@@ -35,9 +37,9 @@ class Chat extends Endpoint
     /**
      * @throws RocketException
      */
-    public function postRoomMessage(string $channel, string $text): Message
+    public function postRoomMessage(string $roomId, string $text): Message
     {
-        $this->checkEmptyString($channel);
+        $this->checkEmptyString($roomId);
         $this->checkEmptyString($text);
 
         $data = get_defined_vars();
