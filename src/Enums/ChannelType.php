@@ -11,6 +11,6 @@ use BenSampo\Enum\Enum;
 
 final class ChannelType extends Enum
 {
-    const Channel = 'c';
-    const Private = 'p';
+    public const Channel = 'c';
+    public const Private = 'p';
 }
