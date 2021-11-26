@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace visifo\Rocket\Endpoints;
 
 use visifo\Rocket\Deserializer;
+use visifo\Rocket\Enums\ChannelType;
 use visifo\Rocket\Objects\Channels\Channel;
 use visifo\Rocket\Rocket;
 use visifo\Rocket\RocketException;
@@ -331,10 +332,8 @@ class Channels extends Endpoint
      * @throws RocketException
      * type is either "c" for channel or "p" for private
      */
-    public function setType(string $type, string $roomId = '', string $roomName = ''): void
+    public function setType(ChannelType $type, string $roomId = '', string $roomName = ''): void
     {
-        $this->checkEmptyString($type);
-
         if ($roomId) {
             $data['roomId'] = $roomId;
         } elseif ($roomName) {
@@ -343,7 +342,7 @@ class Channels extends Endpoint
             throw new RocketException('roomId or roomName must be set for setType');
         }
 
-        $data['type'] = $type;
+        $data['type'] = $type->value;
 
         $this->rocket->post('channels.setType', $data);
     }
