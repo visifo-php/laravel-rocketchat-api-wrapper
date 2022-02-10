@@ -107,7 +107,7 @@ class Users extends Endpoint
 
         $data['avatarUrl'] = $avatarUrl;
 
-        $this->rocket->get("users.setAvatar", $data);
+        $this->rocket->post("users.setAvatar", $data);
     }
 
     /**
