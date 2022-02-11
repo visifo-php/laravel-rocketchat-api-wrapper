@@ -77,7 +77,7 @@ class Users extends Endpoint
     /**
      * @throws RocketException
      */
-    public function info(string $userId = '', string $username = ''): User
+    public function info(string $userId = '', string $username = ''): ?User
     {
         if ($userId) {
             $query['userId'] = $userId;
@@ -87,7 +87,14 @@ class Users extends Endpoint
             throw new RocketException("userId or username must be set to get Users Info");
         }
 
-        $response = $this->rocket->get("users.info", $query);
+        try {
+            $response = $this->rocket->get("users.info", $query);
+        } catch (RocketException $re) {
+            if ($re->getCode() === 400 && $re->getMessage() === '{"success":false,"error":"Cannot set property \'canViewAllInfo\' of undefined"}') {
+                return null;
+            }
+            throw $re;
+        }
 
         return Deserializer::deserialize($response, User::class);
     }
