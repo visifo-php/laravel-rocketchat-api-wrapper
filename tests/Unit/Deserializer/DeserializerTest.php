@@ -22,11 +22,11 @@ class DeserializerTest extends TestCase
     public function deserialize_when_unsuccessfulResponse_then_throwException()
     {
         $this->expectException(RocketException::class);
-        $this->expectExceptionMessage("Property: 'success' must be set in RocketChat response");
+        $this->expectExceptionMessage("Didnt find any objects/arrays inside RocketChat response");
 
         $response = new stdClass();
 
-        Deserializer::deserialize($response, UntypedPropertyClass::class);
+        Deserializer::deserializeObject($response, UntypedPropertyClass::class);
     }
 
     /**
@@ -40,7 +40,7 @@ class DeserializerTest extends TestCase
         $response = new stdClass();
         $response->success = true;
 
-        Deserializer::deserialize($response, UntypedPropertyClass::class);
+        Deserializer::deserializeObject($response, UntypedPropertyClass::class);
     }
 
     /**
@@ -56,7 +56,7 @@ class DeserializerTest extends TestCase
         $response->objectA = new stdClass();
         $response->objectB = new stdClass();
 
-        Deserializer::deserialize($response, UntypedPropertyClass::class);
+        Deserializer::deserializeObject($response, UntypedPropertyClass::class);
     }
 
     /**
@@ -71,7 +71,7 @@ class DeserializerTest extends TestCase
         $response->success = true;
         $response->test = new stdClass();
 
-        Deserializer::deserialize($response, UntypedPropertyClass::class);
+        Deserializer::deserializeObject($response, UntypedPropertyClass::class);
     }
 
     /**
@@ -87,7 +87,7 @@ class DeserializerTest extends TestCase
         $response->test = new stdClass();
         $response->test->test = "test";
 
-        Deserializer::deserialize($response, UntypedPropertyClass::class);
+        Deserializer::deserializeObject($response, UntypedPropertyClass::class);
     }
 
     /**
@@ -103,7 +103,7 @@ class DeserializerTest extends TestCase
         $response->test = new stdClass();
         $response->test->test = "test";
 
-        Deserializer::deserialize($response, MappedPropertyDoesNotExistClass::class);
+        Deserializer::deserializeObject($response, MappedPropertyDoesNotExistClass::class);
     }
 
     /**
@@ -113,7 +113,7 @@ class DeserializerTest extends TestCase
     public function deserialize_when_validInput_then_throwException()
     {
         $object = ExampleResponseHelper::getUsersCreateAsObject();
-        $result = Deserializer::deserialize($object, User::class);
+        $result = Deserializer::deserializeObject($object, User::class);
 
         $this->assertInstanceOf(User::class, $result);
         $this->assertEquals('fake_user_id', $result->id);

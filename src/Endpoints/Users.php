@@ -90,7 +90,7 @@ class Users extends Endpoint
         try {
             $response = $this->rocket->get("users.info", $query);
         } catch (RocketException $re) {
-            if ($re->getCode() === 400 && $re->getMessage() === '{"success":false,"error":"Cannot set property \'canViewAllInfo\' of undefined"}') {
+            if ($re->getCode() === 400 && $re->getMessage() === "Cannot set property 'canViewAllInfo' of undefined") {
                 return null;
             }
 

@@ -2,6 +2,7 @@
 
 namespace visifo\Rocket\Tests\Unit;
 
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
 use ReflectionClass;
 use ReflectionException;
@@ -91,9 +92,10 @@ class RocketTest extends TestCase
         Http::fake(fn() => Http::response(ExampleResponseHelper::successWithObject()));
         $result = rocketChat()->post('fake.endpoint', ['fake' => 'data']);
 
-        $this->assertIsObject($result);
-        $this->assertIsObject($result->fakeobject);
-        $this->assertEquals('fake', $result->fakeobject->test);
+        $this->assertInstanceOf(Response::class, $result);
+        $this->assertIsObject($result->object());
+        $this->assertIsObject($result->object()->fakeobject);
+        $this->assertEquals('fake', $result->object()->fakeobject->test);
     }
 
     /**
@@ -151,9 +153,10 @@ class RocketTest extends TestCase
         $result = rocketChat()->get('fake.endpoint');
 
         $this->assertNotNull($result);
-        $this->assertInstanceOf(stdClass::class, $result);
-        $this->assertNotNull($result->fakeobject);
-        $this->assertEquals('fake', $result->fakeobject->test);
+        $this->assertInstanceOf(Response::class, $result);
+        $this->assertInstanceOf(stdClass::class, $result->object());
+        $this->assertNotNull($result->object()->fakeobject);
+        $this->assertEquals('fake', $result->object()->fakeobject->test);
     }
 
     /** @test

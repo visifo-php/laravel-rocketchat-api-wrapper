@@ -75,14 +75,9 @@ final class Rocket
         $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($this->headers)->get($url, $query);
 
         $this->logResponse($response);
+        $this->checkResponse($response);
 
-        if ($response->failed()) {
-            throw new RocketException($response->body(), $response->status());
-        }
-
-        $this->checkResponse($response->object());
-
-        return $response->object();
+        return $response;
     }
 
     /**
@@ -103,14 +98,9 @@ final class Rocket
         $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($headers)->post($url, $data);
 
         $this->logResponse($response);
+        $this->checkResponse($response);
 
-        if ($response->failed()) {
-            throw new RocketException($response->body(), $response->status());
-        }
-
-        $this->checkResponse($response->object());
-
-        return $response->object();
+        return $response;
     }
 
     /**
@@ -133,14 +123,9 @@ final class Rocket
         $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($headers)->post($url, $data);
 
         $this->logResponse($response);
+        $this->checkResponse($response);
 
-        if ($response->failed()) {
-            throw new RocketException($response->body(), $response->status());
-        }
-
-        $this->checkResponse($response->object());
-
-        return $response->object();
+        return $response;
     }
 
     public function logRequest(string $method, string $url, ?array $data): void
@@ -156,14 +141,22 @@ final class Rocket
     /**
      * @throws RocketException
      */
-    public function checkResponse(object $response)
+    public function checkResponse(Response $response)
     {
-        if (!isset($response->success)) {
+        $responseObject = $response->object();
+
+        if ($response->failed()) {
+            throw new RocketException($responseObject?->error ?? $response->body(), $response->status(),
+                errorType: $responseObject?->errorType ?? null);
+        }
+
+        if (!isset($responseObject->success)) {
             throw new RocketException("Property: 'success' must be set in RocketChat response");
         }
 
-        if (!$response->success) {
-            throw new RocketException("Request wasn't successful. Reason: '$response->error'");
+        if (!$responseObject->success) {
+            throw new RocketException("Request wasn't successful. Reason: '" . ($responseObject?->error ?? '') . "'",
+                errorType: $responseObject?->errorType ?? null);
         }
     }
 
