@@ -52,7 +52,9 @@ class Users extends Endpoint
             throw new RocketException('userId or username must be set for Users.delete');
         }
 
-        $data['confirmRelinquish'] = $confirmRelinquish;
+        if ($confirmRelinquish) {
+            $data['confirmRelinquish'] = $confirmRelinquish;
+        }
 
         $this->rocket->post("users.delete", $data);
     }

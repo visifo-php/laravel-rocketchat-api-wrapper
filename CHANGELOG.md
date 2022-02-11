@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-rocketchat-api-wrapper` will be documented in this file.
 
+## 0.2.3 - 2022-02-11
+- send confirmRelinquish in users.delete only if it is set to true
+
 ## 0.2.2 - 2022-02-10
 - fixed users.setAvatar post request
 
