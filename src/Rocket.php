@@ -77,7 +77,7 @@ final class Rocket
         $this->logResponse($response);
 
         if ($response->failed()) {
-            throw new RocketException("Request failed with Code: {$response->status()}");
+            throw new RocketException($response->object()?->error ?? $response->body(), $response->status());
         }
 
         $this->checkResponse($response->object());
@@ -105,7 +105,7 @@ final class Rocket
         $this->logResponse($response);
 
         if ($response->failed()) {
-            throw new RocketException("Request failed with Code: {$response->status()}");
+            throw new RocketException($response->object()?->error ?? $response->body(), $response->status());
         }
 
         $this->checkResponse($response->object());
@@ -135,7 +135,7 @@ final class Rocket
         $this->logResponse($response);
 
         if ($response->failed()) {
-            throw new RocketException("Request failed with Code: {$response->status()}");
+            throw new RocketException($response->object()?->error ?? $response->body(), $response->status());
         }
 
         $this->checkResponse($response->object());
@@ -163,11 +163,7 @@ final class Rocket
         }
 
         if (!$response->success) {
-            if (isset($response->error) && isset($response->errorType)) {
-                throw new RocketException("Request wasn't successful. Reason: '$response->error'", $response->errorType);
-            }
-
-            throw new RocketException("Request wasn't successful");
+            throw new RocketException("Request wasn't successful. Reason: '$response->error'");
         }
     }
 

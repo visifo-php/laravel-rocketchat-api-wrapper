@@ -116,7 +116,8 @@ class RocketTest extends TestCase
         Http::fake(fn() => Http::response(ExampleResponseHelper::getUnsuccessfulWithException(), 401));
 
         $this->expectException(RocketException::class);
-        $this->expectExceptionMessage('Request failed with Code: 401');
+        $this->expectExceptionCode(401);
+        $this->expectExceptionMessage('FakeError');
 
         rocketChat()->post('fake.endpoint', ['fake' => 'data']);
     }
@@ -161,7 +162,8 @@ class RocketTest extends TestCase
     public function get_when_statusNot200_then_throwException()
     {
         $this->expectException(RocketException::class);
-        $this->expectExceptionMessage('Request failed with Code: 401');
+        $this->expectExceptionCode(401);
+        $this->expectExceptionMessage('{"fakeobject":{"test":"fake"},"success":true}');
 
         Http::fake(fn() => Http::response(ExampleResponseHelper::successWithObject(), 401));
         rocketChat()->get('fake.endpoint');

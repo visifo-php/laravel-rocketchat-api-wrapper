@@ -7,11 +7,8 @@ use Throwable;
 
 class RocketException extends Exception
 {
-    public string $errorType;
-
-    public function __construct($message = "", $errorType = "", Throwable $previous = null)
+    public function __construct(string $message, ?int $code = 0, ?Throwable $previous = null)
     {
-        parent::__construct($message, 0, $previous);
-        $this->errorType = $errorType;
+        parent::__construct($message, $code, $previous);
     }
 }
