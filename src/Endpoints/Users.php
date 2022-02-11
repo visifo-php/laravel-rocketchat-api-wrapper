@@ -67,7 +67,15 @@ class Users extends Endpoint
             $data['confirmRelinquish'] = $confirmRelinquish;
         }
 
-        $this->rocket->post("users.delete", $data);
+        try {
+            $this->rocket->post("users.delete", $data);
+        } catch (RocketException $re) {
+            if ($re->errorType === 'error-invalid-user') {
+                return;
+            }
+
+            throw $re;
+        }
     }
 
     /**
