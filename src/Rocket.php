@@ -5,7 +5,9 @@ declare(strict_types=1);
 namespace visifo\Rocket;
 
 use Exception;
+use Illuminate\Http\Client\Response;
 use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Log;
 use visifo\Rocket\Endpoints\Channels;
 use visifo\Rocket\Endpoints\Chat;
 use visifo\Rocket\Endpoints\Commands;
@@ -64,17 +66,15 @@ final class Rocket
     /**
      * @throws RocketException
      */
-    public function post(string $endpoint, array $data): object
+    public function get(string $endpoint, ?array $query = null): object
     {
-        if (empty($data)) {
-            throw new RocketException('post data array cant be empty');
-        }
-
         $url = $this->url . '/api/v1/' . $endpoint;
-        $headers = $this->headers;
-        $headers['Content-Type'] = 'application/json';
 
-        $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($headers)->post($url, $data);
+        $this->logRequest('get', $url, $query);
+
+        $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($this->headers)->get($url, $query);
+
+        $this->logResponse($response);
 
         if ($response->failed()) {
             throw new RocketException("Request failed with Code: {$response->status()}");
@@ -88,10 +88,21 @@ final class Rocket
     /**
      * @throws RocketException
      */
-    public function get(string $endpoint, ?array $query = null): object
+    public function post(string $endpoint, array $data): object
     {
+        if (empty($data)) {
+            throw new RocketException('post data array cant be empty');
+        }
+
         $url = $this->url . '/api/v1/' . $endpoint;
-        $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($this->headers)->get($url, $query);
+        $headers = $this->headers;
+        $headers['Content-Type'] = 'application/json';
+
+        $this->logRequest('post', $url, $data);
+
+        $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($headers)->post($url, $data);
+
+        $this->logResponse($response);
 
         if ($response->failed()) {
             throw new RocketException("Request failed with Code: {$response->status()}");
@@ -117,7 +128,11 @@ final class Rocket
         $headers['x-2fa-code'] = hash('sha256', $this->password);
         $headers['x-2fa-method'] = 'password';
 
+        $this->logRequest('postWith2FA', $url, $data);
+
         $response = Http::timeout($this->timeout)->retry($this->retries, $this->sleep)->withHeaders($headers)->post($url, $data);
+
+        $this->logResponse($response);
 
         if ($response->failed()) {
             throw new RocketException("Request failed with Code: {$response->status()}");
@@ -126,6 +141,16 @@ final class Rocket
         $this->checkResponse($response->object());
 
         return $response->object();
+    }
+
+    public function logRequest(string $method, string $url, ?array $data): void
+    {
+        Log::debug("Request: $method $url " . json_encode($data));
+    }
+
+    public function logResponse(Response $response): void
+    {
+        Log::debug("Response: {$response->status()} {$response->body()}");
     }
 
     /**
