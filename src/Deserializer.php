@@ -111,7 +111,7 @@ class Deserializer
             if (property_exists($response, $mappedName)) {
                 $response->$propertyName = $response->$mappedName;
             } else {
-                throw new RocketException("The mapped property for '$propertyName' does not exist in RocketChat Response");
+                throw new RocketException("The mapped property '$mappedName' for '$propertyName' does not exist in RocketChat Response");
             }
         }
     }
