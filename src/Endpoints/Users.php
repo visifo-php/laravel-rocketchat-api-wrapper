@@ -43,6 +43,7 @@ class Users extends Endpoint
                     return $user;
                 }
             }
+
             throw $re;
         }
 
