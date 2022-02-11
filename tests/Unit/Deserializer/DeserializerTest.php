@@ -96,7 +96,7 @@ class DeserializerTest extends TestCase
     public function deserialize_when_mappedPropertyDoesNotExist_then_throwException()
     {
         $this->expectException(RocketException::class);
-        $this->expectExceptionMessage("The mapped property for 'test' does not exist in RocketChat Response");
+        $this->expectExceptionMessage("The mapped property 'does_not_exist' for 'test' does not exist in RocketChat Response");
 
         $response = new stdClass();
         $response->success = true;

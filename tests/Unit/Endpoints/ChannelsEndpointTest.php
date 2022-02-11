@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Http;
 use visifo\Rocket\Endpoints\Channels;
 use visifo\Rocket\Enums\ChannelType;
 use visifo\Rocket\Objects\Channels\Channel;
-use visifo\Rocket\Objects\Common\User;
 use visifo\Rocket\RocketException;
 use visifo\Rocket\Tests\ExampleResponseHelper;
 use visifo\Rocket\Tests\TestCase;
@@ -48,11 +47,6 @@ class ChannelsEndpointTest extends TestCase
         $this->assertEquals('fake_channel_id', $result->id);
         $this->assertEquals('fake_channel_name', $result->name);
         $this->assertEquals('c', $result->type);
-        $this->assertEquals(0, $result->messageCount);
-
-        $this->assertInstanceOf(User::class, $result->user);
-        $this->assertEquals("fake_user_id", $result->user->id);
-        $this->assertEquals("fake_user_name", $result->user->username);
     }
 
     /**
@@ -68,11 +62,6 @@ class ChannelsEndpointTest extends TestCase
         $this->assertEquals('fake_channel_id', $result->id);
         $this->assertEquals('fake_channel_name', $result->name);
         $this->assertEquals('c', $result->type);
-        $this->assertEquals(0, $result->messageCount);
-
-        $this->assertInstanceOf(User::class, $result->user);
-        $this->assertEquals("fake_user_id", $result->user->id);
-        $this->assertEquals("fake_user_name", $result->user->username);
     }
 
     /**
@@ -363,9 +352,5 @@ class ChannelsEndpointTest extends TestCase
         $this->assertEquals('ByehQjC44FwMeiLbX', $result->channels[0]->id);
         $this->assertEquals('channel_1', $result->channels[0]->name);
         $this->assertEquals('c', $result->channels[0]->type);
-        $this->assertEquals(0, $result->channels[0]->messageCount);
-        $this->assertInstanceOf(User::class, $result->channels[0]->user);
-        $this->assertEquals('aobEdbYhXfu5hkeqG', $result->channels[0]->user->id);
-        $this->assertEquals('testing1', $result->channels[0]->user->username);
     }
 }
