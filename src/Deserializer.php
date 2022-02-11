@@ -3,6 +3,7 @@
 namespace visifo\Rocket;
 
 use Exception;
+use Illuminate\Support\Facades\Log;
 use ReflectionClass;
 use ReflectionProperty;
 
@@ -13,11 +14,16 @@ class Deserializer
      */
     public static function deserialize(object $response, string $class): mixed
     {
-        rocketChat()->checkResponse($response);
+        try {
+            rocketChat()->checkResponse($response);
 
-        $classInstance = new $class();
-        $objectOrArray = self::getObjectOrArrayFromResponse($response);
-        self::fillObject($objectOrArray, $classInstance);
+            $classInstance = new $class();
+            $objectOrArray = self::getObjectOrArrayFromResponse($response);
+            self::fillObject($objectOrArray, $classInstance);
+        } catch (Exception $e) {
+            Log::debug($response);
+            throw $e;
+        }
 
         return $classInstance;
     }
