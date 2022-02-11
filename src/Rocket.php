@@ -77,7 +77,7 @@ final class Rocket
         $this->logResponse($response);
 
         if ($response->failed()) {
-            throw new RocketException($response->object()?->error ?? $response->body(), $response->status());
+            throw new RocketException($response->body(), $response->status());
         }
 
         $this->checkResponse($response->object());
@@ -105,7 +105,7 @@ final class Rocket
         $this->logResponse($response);
 
         if ($response->failed()) {
-            throw new RocketException($response->object()?->error ?? $response->body(), $response->status());
+            throw new RocketException($response->body(), $response->status());
         }
 
         $this->checkResponse($response->object());
@@ -135,7 +135,7 @@ final class Rocket
         $this->logResponse($response);
 
         if ($response->failed()) {
-            throw new RocketException($response->object()?->error ?? $response->body(), $response->status());
+            throw new RocketException($response->body(), $response->status());
         }
 
         $this->checkResponse($response->object());
