@@ -22,6 +22,7 @@ class Deserializer
             self::fillObject($objectOrArray, $classInstance);
         } catch (Exception $e) {
             Log::debug($response);
+
             throw $e;
         }
 
