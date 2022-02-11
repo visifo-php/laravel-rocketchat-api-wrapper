@@ -21,7 +21,7 @@ class Deserializer
             $objectOrArray = self::getObjectOrArrayFromResponse($response);
             self::fillObject($objectOrArray, $classInstance);
         } catch (Exception $e) {
-            Log::debug($response);
+            Log::debug(json_encode($response));
 
             throw $e;
         }
