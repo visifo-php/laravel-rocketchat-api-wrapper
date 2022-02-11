@@ -34,7 +34,17 @@ class Users extends Endpoint
 
         $data = get_defined_vars();
 
-        $response = $this->rocket->post("users.create", $data);
+        try {
+            $response = $this->rocket->post("users.create", $data);
+        } catch (RocketException $re) {
+            if ($re->errorType === 'error-field-unavailable') {
+                $user = $this->info(username: $username);
+                if ($user) {
+                    return $user;
+                }
+            }
+            throw $re;
+        }
 
         return Deserializer::deserialize($response, User::class);
     }

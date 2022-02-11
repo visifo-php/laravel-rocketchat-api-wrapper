@@ -66,7 +66,7 @@ final class Rocket
     /**
      * @throws RocketException
      */
-    public function get(string $endpoint, ?array $query = null): object
+    public function get(string $endpoint, ?array $query = null): Response
     {
         $url = $this->url . '/api/v1/' . $endpoint;
 
@@ -83,7 +83,7 @@ final class Rocket
     /**
      * @throws RocketException
      */
-    public function post(string $endpoint, array $data): object
+    public function post(string $endpoint, array $data): Response
     {
         if (empty($data)) {
             throw new RocketException('post data array cant be empty');
@@ -106,7 +106,7 @@ final class Rocket
     /**
      * @throws RocketException
      */
-    public function postWith2FA(string $endpoint, array $data): object
+    public function postWith2FA(string $endpoint, array $data): Response
     {
         if (empty($this->password)) {
             throw new RocketException('Password required for 2FA requests. Please set it in your Laravel .env file');
