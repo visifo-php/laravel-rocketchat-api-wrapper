@@ -146,8 +146,11 @@ final class Rocket
         $responseObject = $response->object();
 
         if ($response->failed()) {
-            throw new RocketException($responseObject?->error ?? $response->body(), $response->status(),
-                errorType: $responseObject?->errorType ?? null);
+            throw new RocketException(
+                $responseObject?->error ?? $response->body(),
+                $response->status(),
+                errorType: $responseObject?->errorType ?? null
+            );
         }
 
         if (!isset($responseObject->success)) {
@@ -155,8 +158,10 @@ final class Rocket
         }
 
         if (!$responseObject->success) {
-            throw new RocketException("Request wasn't successful. Reason: '" . ($responseObject?->error ?? '') . "'",
-                errorType: $responseObject?->errorType ?? null);
+            throw new RocketException(
+                "Request wasn't successful. Reason: '" . ($responseObject?->error ?? '') . "'",
+                errorType: $responseObject?->errorType ?? null
+            );
         }
     }
 
