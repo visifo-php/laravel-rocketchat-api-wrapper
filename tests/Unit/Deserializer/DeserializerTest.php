@@ -118,7 +118,6 @@ class DeserializerTest extends TestCase
         $this->assertInstanceOf(User::class, $result);
         $this->assertEquals('fake_user_id', $result->id);
         $this->assertEquals('fake_user_name', $result->username);
-        $this->assertEquals('user', $result->type);
         $this->assertEquals('offline', $result->status);
         $this->assertEquals(true, $result->active);
     }

@@ -35,7 +35,6 @@ class UsersEndpointTest extends TestCase
         $this->assertInstanceOf(User::class, $result);
         $this->assertEquals('fake_user_id', $result->id);
         $this->assertEquals('fake_user_name', $result->username);
-        $this->assertEquals('user', $result->type);
         $this->assertEquals('offline', $result->status);
         $this->assertEquals(true, $result->active);
     }
@@ -63,7 +62,6 @@ class UsersEndpointTest extends TestCase
 
         $this->assertInstanceOf(\visifo\Rocket\Objects\Users\Users::class, $result);
         $this->assertEquals('fake_user_id', $result->users[0]->id);
-        $this->assertEquals('fake_type', $result->users[0]->type);
         $this->assertEquals("offline", $result->users[0]->status);
         $this->assertEquals(false, $result->users[0]->active);
         $this->assertEquals('fake_user_name', $result->users[0]->username);
@@ -92,7 +90,6 @@ class UsersEndpointTest extends TestCase
         $this->assertInstanceOf(User::class, $result);
         $this->assertEquals('fake_user_id', $result->id);
         $this->assertEquals('fake_user', $result->username);
-        $this->assertEquals('user', $result->type);
         $this->assertEquals('offline', $result->status);
         $this->assertEquals(true, $result->active);
     }
