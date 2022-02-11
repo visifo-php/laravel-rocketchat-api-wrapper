@@ -93,6 +93,7 @@ class Users extends Endpoint
             if ($re->getCode() === 400 && $re->getMessage() === '{"success":false,"error":"Cannot set property \'canViewAllInfo\' of undefined"}') {
                 return null;
             }
+
             throw $re;
         }
 
