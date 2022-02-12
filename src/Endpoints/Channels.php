@@ -26,7 +26,19 @@ class Channels extends Endpoint
     {
         $this->checkEmptyString($name);
         $data = get_defined_vars();
-        $response = $this->rocket->post('channels.create', $data);
+
+        try {
+            $response = $this->rocket->post('channels.create', $data);
+        } catch (RocketException $re) {
+            if ($re->errorType === 'error-duplicate-channel-name') {
+                $channel = $this->info(roomName: $name);
+                if ($channel) {
+                    return $channel;
+                }
+            }
+
+            throw $re;
+        }
 
         return Deserializer::deserialize($response, Channel::class);
     }
