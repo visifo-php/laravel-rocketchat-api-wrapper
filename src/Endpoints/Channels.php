@@ -82,7 +82,15 @@ class Channels extends Endpoint
             throw new RocketException('roomId or roomName must be set to delete a Channel');
         }
 
-        $this->rocket->post('channels.delete', $data);
+        try {
+            $this->rocket->post('channels.delete', $data);
+        } catch (RocketException $re) {
+            if ($re->errorType === 'error-room-not-found') {
+                return;
+            }
+
+            throw $re;
+        }
     }
 
     /**
