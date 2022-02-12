@@ -2,6 +2,13 @@
 
 All notable changes to `laravel-rocketchat-api-wrapper` will be documented in this file.
 
+## 0.3.1 - 2022-02-12
+- improved error handling
+- added configurable debug output on requests and responses
+- users.info & channels.info return null if not exists
+- users.create & channels.create return the object if it exists
+- users.delete & channels.delete does not throw exception if the target not exists
+
 ## 0.2.3 - 2022-02-11
 - send confirmRelinquish in users.delete only if it is set to true
 
