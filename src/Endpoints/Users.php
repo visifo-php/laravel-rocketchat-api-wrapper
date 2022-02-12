@@ -136,7 +136,15 @@ class Users extends Endpoint
 
         $data['avatarUrl'] = $avatarUrl;
 
-        $this->rocket->post("users.setAvatar", $data);
+        try {
+            $this->rocket->post("users.setAvatar", $data);
+        } catch (RocketException $re) {
+            if ($re->errorType === 'error-invalid-user') {
+                return;
+            }
+
+            throw $re;
+        }
     }
 
     /**

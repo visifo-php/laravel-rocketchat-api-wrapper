@@ -2,6 +2,9 @@
 
 All notable changes to `laravel-rocketchat-api-wrapper` will be documented in this file.
 
+## 0.3.2 - 2022-02-12
+- users.setAvatar does not throw exception if the user not exists
+
 ## 0.3.1 - 2022-02-12
 - improved error handling
 - added configurable debug output on requests and responses
