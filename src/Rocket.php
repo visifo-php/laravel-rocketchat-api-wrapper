@@ -151,8 +151,10 @@ final class Rocket
 
         if ($response->failed()) {
             throw new RocketException(
+                /** @phpstan-ignore-next-line */
                 $responseObject?->error ?? $response->body(),
                 $response->status(),
+                /** @phpstan-ignore-next-line */
                 errorType: $responseObject?->errorType ?? null
             );
         }
@@ -163,7 +165,9 @@ final class Rocket
 
         if (!$responseObject->success) {
             throw new RocketException(
+                /** @phpstan-ignore-next-line */
                 "Request wasn't successful. Reason: '" . ($responseObject?->error ?? '') . "'",
+                /** @phpstan-ignore-next-line */
                 errorType: $responseObject?->errorType ?? null
             );
         }
