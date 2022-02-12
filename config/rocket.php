@@ -10,4 +10,5 @@ return [
     'timeout' => env('ROCKET_TIMEOUT', 0),
     'retries' => env('ROCKET_RETRIES', 1),
     'sleep' => env('ROCKET_SLEEP', 0),
+    'debug_logs_enabled' => env('ROCKET_DEBUG_LOGS', false),
 ];

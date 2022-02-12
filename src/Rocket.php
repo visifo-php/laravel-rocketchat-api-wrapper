@@ -130,12 +130,16 @@ final class Rocket
 
     public function logRequest(string $method, string $url, ?array $data): void
     {
-        Log::debug("Request: $method $url " . json_encode($data));
+        if (config('rocket.debug_logs_enabled')) {
+            Log::debug("Request: $method $url " . json_encode($data));
+        }
     }
 
     public function logResponse(Response $response): void
     {
-        Log::debug("Response: {$response->status()} {$response->body()}");
+        if (config('rocket.debug_logs_enabled')) {
+            Log::debug("Response: {$response->status()} {$response->body()}");
+        }
     }
 
     /**
