@@ -34,7 +34,7 @@ class Channels extends Endpoint
     /**
      * @throws RocketException
      */
-    public function info(string $roomId = '', string $roomName = ''): Channel
+    public function info(string $roomId = '', string $roomName = ''): ?Channel
     {
         if ($roomId) {
             $query['roomId'] = $roomId;
@@ -44,7 +44,15 @@ class Channels extends Endpoint
             throw new RocketException('roomId or roomName must be set to get Channel Info');
         }
 
-        $response = $this->rocket->get('channels.info', $query);
+        try {
+            $response = $this->rocket->get('channels.info', $query);
+        } catch (RocketException $re) {
+            if ($re->errorType === 'error-room-not-found') {
+                return null;
+            }
+
+            throw $re;
+        }
 
         return Deserializer::deserialize($response, Channel::class);
     }
