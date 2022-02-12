@@ -53,7 +53,7 @@ class Users extends Endpoint
     /**
      * @throws RocketException
      */
-    public function delete(string $userId = '', string $username = '', bool $confirmRelinquish = false): void
+    public function delete(string $userId = '', string $username = '', bool $confirmRelinquish = true): void
     {
         if ($userId) {
             $data['userId'] = $userId;
