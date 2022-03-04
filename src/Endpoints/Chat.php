@@ -65,6 +65,7 @@ class Chat extends Endpoint
             if (str_contains($re->errorType, 'No message found with the id of')) {
                 return;
             }
+
             throw $re;
         }
     }
