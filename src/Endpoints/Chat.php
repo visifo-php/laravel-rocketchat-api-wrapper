@@ -59,15 +59,14 @@ class Chat extends Endpoint
 
         $data = get_defined_vars();
 
-
         try {
             $this->rocket->post("chat.delete", $data);
         } catch (RocketException $re) {
             if ($re->getCode() === 400 && ($re->getMessage() === '{"success":false}' || str_contains($re->errorType, 'No message found with the id'))) {
                 return;
-            } else {
-                throw $re;
             }
+
+            throw $re;
         }
     }
 
