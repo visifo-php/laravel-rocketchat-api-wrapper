@@ -83,7 +83,7 @@ class Chat extends Endpoint
             $response = $this->rocket->get("chat.getMessage", $query);
         } catch (RocketException $re) {
             if ($re->getCode() === 400 && $re->getMessage() === '{"success":false}') {
-              return null;
+                return null;
             }
 
             throw $re;
