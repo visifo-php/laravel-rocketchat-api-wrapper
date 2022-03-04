@@ -87,7 +87,17 @@ class Chat extends Endpoint
     {
         $this->checkEmptyString($msgId);
         $query = get_defined_vars();
-        $response = $this->rocket->get("chat.getMessage", $query);
+
+        try {
+
+            $response = $this->rocket->get("chat.getMessage", $query);
+        } catch (RocketException $re) {
+            if ($re->getMessage() === '{"success":false}') {
+                return null;
+            }
+
+            throw $re;
+        }
 
         return Deserializer::deserialize($response, Message::class);
     }
