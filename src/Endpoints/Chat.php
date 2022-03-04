@@ -89,7 +89,6 @@ class Chat extends Endpoint
         $query = get_defined_vars();
 
         try {
-
             $response = $this->rocket->get("chat.getMessage", $query);
         } catch (RocketException $re) {
             if ($re->getMessage() === '{"success":false}') {
