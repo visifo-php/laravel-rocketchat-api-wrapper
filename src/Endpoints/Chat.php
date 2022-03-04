@@ -58,7 +58,15 @@ class Chat extends Endpoint
             ->checkEmptyString($msgId);
 
         $data = get_defined_vars();
-        $this->rocket->post("chat.delete", $data);
+
+        try {
+            $this->rocket->post("chat.delete", $data);
+        } catch (RocketException $re) {
+            if (str_contains($re->errorType, 'No message found with the id of')) {
+                return;
+            }
+            throw $re;
+        }
     }
 
     /**
