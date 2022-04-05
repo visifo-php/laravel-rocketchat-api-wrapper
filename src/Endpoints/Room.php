@@ -28,5 +28,4 @@ class Room extends Endpoint
         $data = get_defined_vars();
         $this->rocket->post('rooms.cleanHistory', $data);
     }
-
 }
