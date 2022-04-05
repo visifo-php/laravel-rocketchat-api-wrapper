@@ -9,6 +9,7 @@ use visifo\Rocket\Enums\ChannelType;
 use visifo\Rocket\Objects\Channels\Channel;
 use visifo\Rocket\Rocket;
 use visifo\Rocket\RocketException;
+use function visifo\Rocket\rocketChat;
 
 class Channels extends Endpoint
 {
@@ -388,9 +389,14 @@ class Channels extends Endpoint
     /**
      * @throws RocketException
      */
-    public function list(): \visifo\Rocket\Objects\Channels\Channels
+    public function list(int $count, int $offset, string $query): \visifo\Rocket\Objects\Channels\Channels
     {
-        $response = $this->rocket->get('channels.list');
+        $response = rocketChat()->get('channels.list', [
+            'count' => $count,
+            'offset' => $offset,
+            'query' => $query,
+            'fields' => '{ "_id": 1, "name": 1, "t": 1 }',
+        ]);
 
         return Deserializer::deserialize($response, \visifo\Rocket\Objects\Channels\Channels::class);
     }

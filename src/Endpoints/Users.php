@@ -8,6 +8,7 @@ use visifo\Rocket\Deserializer;
 use visifo\Rocket\Objects\Users\User;
 use visifo\Rocket\Rocket;
 use visifo\Rocket\RocketException;
+use function visifo\Rocket\rocketChat;
 
 class Users extends Endpoint
 {
@@ -150,9 +151,14 @@ class Users extends Endpoint
     /**
      * @throws RocketException
      */
-    public function list(): \visifo\Rocket\Objects\Users\Users
+    public function list(int $count, int $offset, string $query): \visifo\Rocket\Objects\Users\Users
     {
-        $response = $this->rocket->get("users.list");
+        $response = rocketChat()->get('users.list', [
+            'count' => $count,
+            'offset' => $offset,
+            'query' => $query,
+            'fields' => '{ "_id": 1, "username": 1, "status": 1 , "active": 1 }',
+        ]);
 
         return Deserializer::deserialize($response, \visifo\Rocket\Objects\Users\Users::class);
     }
