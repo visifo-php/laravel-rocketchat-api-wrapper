@@ -151,7 +151,7 @@ class Users extends Endpoint
     /**
      * @throws RocketException
      */
-    public function list(int $count, int $offset, string $query): \visifo\Rocket\Objects\Users\Users
+    public function list(int $count, int $offset, ?string $query = null): \visifo\Rocket\Objects\Users\Users
     {
         $response = rocketChat()->get('users.list', [
             'count' => $count,

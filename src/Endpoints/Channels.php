@@ -389,7 +389,7 @@ class Channels extends Endpoint
     /**
      * @throws RocketException
      */
-    public function list(int $count, int $offset, string $query): \visifo\Rocket\Objects\Channels\Channels
+    public function list(int $count, int $offset, ?string $query = null): \visifo\Rocket\Objects\Channels\Channels
     {
         $response = rocketChat()->get('channels.list', [
             'count' => $count,

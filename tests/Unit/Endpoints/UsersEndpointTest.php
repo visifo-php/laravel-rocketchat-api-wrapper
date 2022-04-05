@@ -58,7 +58,7 @@ class UsersEndpointTest extends TestCase
     {
         Http::fake(fn() => Http::response(ExampleResponseHelper::getUsersList()));
 
-        $result = $this->testSystem->list();
+        $result = $this->testSystem->list(200, 0);
 
         $this->assertInstanceOf(\visifo\Rocket\Objects\Users\Users::class, $result);
         $this->assertEquals('fake_user_id', $result->users[0]->id);

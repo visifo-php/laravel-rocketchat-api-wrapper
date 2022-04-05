@@ -346,7 +346,7 @@ class ChannelsEndpointTest extends TestCase
     public function list_when_everythingFine_then_succeed()
     {
         Http::fake(fn() => Http::response(ExampleResponseHelper::getChannelsList()));
-        $result = $this->testSystem->list();
+        $result = $this->testSystem->list(200, 0);
 
         $this->assertInstanceOf(\visifo\Rocket\Objects\Channels\Channels::class, $result);
         $this->assertEquals('ByehQjC44FwMeiLbX', $result->channels[0]->id);
