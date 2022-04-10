@@ -12,6 +12,7 @@ use visifo\Rocket\Endpoints\Channels;
 use visifo\Rocket\Endpoints\Chat;
 use visifo\Rocket\Endpoints\Commands;
 use visifo\Rocket\Endpoints\Roles;
+use visifo\Rocket\Endpoints\Room;
 use visifo\Rocket\Endpoints\Users;
 
 final class Rocket
@@ -151,7 +152,7 @@ final class Rocket
 
         if ($response->failed()) {
             throw new RocketException(
-                /** @phpstan-ignore-next-line */
+            /** @phpstan-ignore-next-line */
                 $responseObject?->error ?? $response->body(),
                 $response->status(),
                 /** @phpstan-ignore-next-line */
@@ -196,5 +197,10 @@ final class Rocket
     public function users(): Users
     {
         return new Users($this);
+    }
+
+    public function rooms(): Room
+    {
+        return new Room($this);
     }
 }
